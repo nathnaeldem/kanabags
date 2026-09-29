@@ -142,6 +142,12 @@ strong { color: var(--text-primary); }
   box-shadow: 0 8px 28px rgba(34, 179, 107, 0.45);
 }
 
+.btn-outline-primary {
+  background: transparent;
+  color: rgb(8, 123, 73);
+  border: 1.5px solid var(--green-500);
+}
+
 .btn-outline {
   background: transparent;
   color: white;
