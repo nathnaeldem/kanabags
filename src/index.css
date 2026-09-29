@@ -144,13 +144,13 @@ strong { color: var(--text-primary); }
 
 .btn-outline-primary {
   background: transparent;
-  color: rgb(8, 123, 73);
+  color: rgb(225, 225, 225);
   border: 1.5px solid var(--green-500);
 }
 
 .btn-outline {
   background: transparent;
-  color: white;
+  color: rgb(7, 202, 66);
   border: 1.5px solid var(--green-500);
 }
 .btn-outline:hover {
