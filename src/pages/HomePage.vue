@@ -284,7 +284,7 @@ export default {
   background: linear-gradient(
     135deg,
     rgba(3, 13, 7, 0.93) 0%,
-    rgba(7, 26, 15, 0.85) 50%,
+    rgba(7, 26, 15, 0.85) 20%,
     rgba(7, 26, 15, 0.6) 100%
   );
 }
