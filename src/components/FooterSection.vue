@@ -97,8 +97,8 @@ export default {
 
 <style scoped>
 .footer {
-  background: var(--green-950);
-  border-top: 1px solid var(--border);
+  background: linear-gradient(160deg, var(--green-950) 0%, var(--green-900) 45%, var(--green-800) 100%);
+  border-top: 3px solid var(--amber);
   padding: 5rem 0 2rem;
   position: relative;
   overflow: hidden;
@@ -108,7 +108,7 @@ export default {
   top: -80px; left: 50%;
   transform: translateX(-50%);
   width: 600px; height: 200px;
-  background: radial-gradient(ellipse, rgba(37,168,100,0.08) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(232,155,30,0.12) 0%, rgba(34,179,107,0.1) 40%, transparent 70%);
   pointer-events: none;
 }
 .footer-grid {
@@ -126,7 +126,7 @@ export default {
 .logo-icon { height: 60px; width: auto; max-width: 200px; object-fit: contain; }
 .brand-desc {
   font-size: 0.88rem;
-  color: var(--text-muted);
+  color: var(--on-green-muted);
   line-height: 1.7;
   margin-bottom: 1.2rem;
 }
@@ -142,17 +142,27 @@ export default {
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.3rem 0.7rem;
-  background: rgba(37,168,100,0.08);
-  border: 1px solid var(--border);
+  background: rgba(34,179,107,0.15);
+  border: 1px solid rgba(61,207,132,0.25);
   border-radius: 999px;
   color: var(--green-300);
+}
+.eco-badge:nth-child(2) {
+  background: rgba(26,166,160,0.15);
+  border-color: rgba(26,166,160,0.3);
+  color: #7ee0db;
+}
+.eco-badge:nth-child(3) {
+  background: rgba(232,155,30,0.15);
+  border-color: rgba(232,155,30,0.3);
+  color: #f5c86a;
 }
 .footer-title {
   font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--green-400);
+  color: var(--amber);
   margin-bottom: 1.2rem;
 }
 .footer-links {
@@ -162,51 +172,51 @@ export default {
   gap: 0.6rem;
 }
 .footer-links a {
-  color: var(--text-muted);
+  color: var(--on-green-dim);
   font-size: 0.9rem;
   transition: color var(--transition);
 }
-.footer-links a:hover { color: var(--green-300); }
+.footer-links a:hover { color: var(--amber); }
 .footer-contact { display: flex; flex-direction: column; gap: 1rem; }
 .contact-item {
   display: flex;
   gap: 0.75rem;
   align-items: flex-start;
 }
-.contact-icon { width: 18px; height: 18px; color: var(--text-muted); margin-top: 2px; flex-shrink: 0; }
+.contact-icon { width: 18px; height: 18px; color: var(--teal); margin-top: 2px; flex-shrink: 0; }
 .contact-item p, .contact-item a {
   display: block;
   font-size: 0.88rem;
-  color: var(--text-muted);
+  color: var(--on-green-dim);
   transition: color var(--transition);
   line-height: 1.6;
 }
-.contact-item a:hover { color: var(--green-300); }
+.contact-item a:hover { color: var(--amber); }
 .footer-bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-top: 2rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(61,207,132,0.15);
   flex-wrap: wrap;
   gap: 1rem;
 }
 .footer-bottom p {
   font-size: 0.83rem;
-  color: var(--text-muted);
+  color: var(--on-green-dim);
 }
 .footer-bottom-links {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
-.footer-bottom-links span { color: var(--text-muted); }
+.footer-bottom-links span { color: var(--on-green-dim); }
 .footer-bottom-links a {
   font-size: 0.83rem;
-  color: var(--text-muted);
+  color: var(--on-green-muted);
   transition: color var(--transition);
 }
-.footer-bottom-links a:hover { color: var(--green-300); }
+.footer-bottom-links a:hover { color: var(--amber); }
 
 @media (max-width: 900px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }

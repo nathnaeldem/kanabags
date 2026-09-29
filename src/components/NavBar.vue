@@ -17,7 +17,7 @@
 
       <!-- CTA -->
       <div class="navbar-cta">
-        <router-link to="/order" class="btn btn-primary">
+        <router-link to="/order" class="btn btn-nav-cta">
           <span>Order Now</span>
           <ArrowRight class="icon-inline" />
         </router-link>
@@ -37,7 +37,7 @@
         <router-link to="/products" class="mobile-link" @click="closeMenu">Products</router-link>
         <router-link to="/environment" class="mobile-link" @click="closeMenu">Environment</router-link>
         <router-link to="/contact" class="mobile-link" @click="closeMenu">Contact</router-link>
-        <router-link to="/order" class="btn btn-primary" style="margin-top:1rem;" @click="closeMenu">Order Now</router-link>
+        <router-link to="/order" class="btn btn-nav-cta" style="margin-top:1rem;" @click="closeMenu">Order Now</router-link>
       </nav>
     </div>
   </header>
@@ -71,16 +71,15 @@ export default {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
-  padding: 1.2rem 0;
+  padding: 1rem 0;
+  background: linear-gradient(135deg, var(--green-900) 0%, var(--green-800) 55%, var(--green-700) 100%);
+  border-bottom: 1px solid rgba(61, 207, 132, 0.2);
+  box-shadow: 0 4px 24px rgba(4, 32, 21, 0.25);
   transition: all 0.35s ease;
 }
 .navbar-scrolled {
-  background: rgba(7, 26, 15, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 0.75rem 0;
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+  padding: 0.65rem 0;
+  box-shadow: 0 6px 28px rgba(4, 32, 21, 0.35);
 }
 .navbar-inner {
   display: flex;
@@ -98,6 +97,7 @@ export default {
   width: auto;
   max-width: 180px;
   object-fit: contain;
+  filter: brightness(1.05);
 }
 .navbar-links {
   display: flex;
@@ -107,7 +107,7 @@ export default {
 .nav-link {
   padding: 0.5rem 0.9rem;
   border-radius: var(--radius-sm);
-  color: var(--text-secondary);
+  color: var(--on-green-muted);
   font-size: 0.9rem;
   font-weight: 500;
   transition: all var(--transition);
@@ -118,14 +118,32 @@ export default {
   position: absolute;
   bottom: 2px; left: 50%; right: 50%;
   height: 2px;
-  background: var(--green-400);
+  background: var(--amber);
   border-radius: 1px;
   transition: all var(--transition);
 }
-.nav-link:hover { color: var(--text-primary); }
+.nav-link:hover { color: var(--on-green); }
 .nav-link:hover::after, .nav-active::after { left: 12px; right: 12px; }
-.nav-active { color: var(--green-300); }
+.nav-active { color: #fff; }
 .navbar-cta { margin-left: 1rem; }
+.btn-nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.9rem;
+  background: linear-gradient(135deg, var(--amber-dark), var(--amber));
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 16px rgba(232, 155, 30, 0.4);
+  transition: all var(--transition);
+}
+.btn-nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232, 155, 30, 0.5);
+}
 .icon-inline { width: 16px; height: 16px; margin-left: 6px; vertical-align: text-bottom; }
 
 .hamburger {
@@ -142,7 +160,7 @@ export default {
   display: block;
   width: 24px;
   height: 2px;
-  background: var(--text-primary);
+  background: var(--on-green);
   border-radius: 2px;
   transition: all 0.3s ease;
 }
@@ -162,18 +180,18 @@ export default {
   flex-direction: column;
   padding: 1rem 1.5rem 1.5rem;
   gap: 0.25rem;
-  border-top: 1px solid var(--border);
-  background: rgba(7, 26, 15, 0.97);
+  border-top: 1px solid rgba(61, 207, 132, 0.2);
+  background: var(--green-950);
 }
 .mobile-link {
   padding: 0.75rem 0.5rem;
-  color: var(--text-secondary);
+  color: var(--on-green-muted);
   font-size: 1rem;
   font-weight: 500;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(61, 207, 132, 0.12);
   transition: color var(--transition);
 }
-.mobile-link:hover { color: var(--green-300); }
+.mobile-link:hover { color: var(--amber); }
 
 @media (max-width: 768px) {
   .navbar-links, .navbar-cta { display: none; }

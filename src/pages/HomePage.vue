@@ -10,7 +10,7 @@
         <div class="hero-split">
           <!-- Left Side: Text and Actions -->
           <div class="hero-text animate-fade-up">
-            <div class="section-label">
+            <div class="section-label section-label-teal">
               <Leaf class="icon-inline" /> FSC Certified Manufacturing
             </div>
             <h1>
@@ -27,7 +27,7 @@
                 Request Enterprise Quote
                 <ArrowRight class="icon-inline" />
               </router-link>
-              <router-link to="/products" class="btn btn-outline btn-lg">View Catalog</router-link>
+              <router-link to="/products" class="btn btn-amber btn-lg">View Catalog</router-link>
             </div>
             <div class="hero-stats">
               <div class="stat">
@@ -143,7 +143,7 @@
       <div class="container">
         <div class="about-inner">
           <div class="about-text">
-            <div class="section-label">Our Story</div>
+          <div class="section-label section-label-amber">Our Story</div>
             <h2>From Humble Beginnings to <span class="gradient-text">Global Growth</span></h2>
             <p>
               KanaBags LLC, established in 2025 in the United States, is a proud extension of
@@ -203,7 +203,7 @@
             </div>
           </div>
           <div class="env-text">
-            <div class="section-label">Environmental Commitment</div>
+            <div class="section-label section-label-teal">Environmental Commitment</div>
             <h2>Protecting Our Planet, <span class="gradient-text">One Bag at a Time</span></h2>
             <p>
               At KanaBags LLC, environmental responsibility is at the core of everything we do.
@@ -234,7 +234,7 @@
             <router-link to="/order" class="btn btn-primary btn-lg animate-pulse-glow">
               <Rocket class="icon-inline" /> Request Free Sample Kit
             </router-link>
-            <router-link to="/contact" class="btn btn-outline btn-lg">Talk to Us</router-link>
+            <router-link to="/contact" class="btn btn-amber btn-lg">Talk to Us</router-link>
           </div>
         </div>
       </div>
@@ -282,16 +282,17 @@ export default {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    135deg,
-    rgba(3, 13, 7, 0.93) 0%,
-    rgba(7, 26, 15, 0.85) 20%,
-    rgba(7, 26, 15, 0.6) 100%
+    120deg,
+    rgba(243, 250, 246, 0.96) 0%,
+    rgba(243, 250, 246, 0.88) 38%,
+    rgba(232, 155, 30, 0.12) 70%,
+    rgba(26, 166, 160, 0.18) 100%
   );
 }
 .hero-content {
   position: relative;
   z-index: 2;
-  padding-top: 6rem;
+  padding-top: 7rem;
   padding-bottom: 4rem;
   width: 100%;
 }
@@ -319,6 +320,12 @@ export default {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.5rem;
+  backdrop-filter: blur(8px);
+  width: fit-content;
 }
 .hero-image-wrap {
   display: flex;
@@ -328,8 +335,8 @@ export default {
 .hero-custom-img {
   max-width: 100%;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-glow);
-  border: 1px solid rgba(61,179,107, 0.2);
+  box-shadow: var(--shadow-lg), 0 0 0 4px rgba(34,179,107,0.15), 0 0 0 8px rgba(232,155,30,0.1);
+  border: 1px solid rgba(34,179,107, 0.2);
   object-fit: cover;
 }
 
@@ -339,8 +346,10 @@ export default {
   font-family: 'Outfit', sans-serif;
   font-size: 1.8rem;
   font-weight: 800;
-  color: var(--green-300);
+  color: var(--green-600);
 }
+.stat:nth-child(3) .stat-num { color: var(--teal); }
+.stat:nth-child(5) .stat-num { color: var(--amber-dark); }
 .stat-label {
   font-size: 0.75rem;
   color: var(--text-muted);
@@ -362,7 +371,7 @@ export default {
 .scroll-dot {
   width: 28px;
   height: 44px;
-  border: 2px solid var(--border);
+  border: 2px solid var(--green-400);
   border-radius: 14px;
   position: relative;
 }
@@ -374,7 +383,7 @@ export default {
   transform: translateX(-50%);
   width: 4px;
   height: 8px;
-  background: var(--green-400);
+  background: var(--amber);
   border-radius: 2px;
   animation: scrollPulse 1.8s ease infinite;
 }
@@ -387,14 +396,14 @@ export default {
 .icon-inline { width: 18px; height: 18px; margin-right: 4px; vertical-align: text-bottom; }
 .icon-sm { width: 16px; height: 16px; margin-right: 4px; vertical-align: text-bottom; }
 .icon-md { width: 24px; height: 24px; }
-.icon-xl { width: 40px; height: 40px; color: var(--green-400); }
-.icon-giant { width: 80px; height: 80px; color: var(--green-400); }
+.icon-xl { width: 40px; height: 40px; color: var(--green-600); }
+.icon-giant { width: 80px; height: 80px; color: var(--teal); }
 
 /* Trust Bar */
 .trust-bar {
-  background: var(--surface-1);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  background: linear-gradient(90deg, var(--green-800), var(--green-700) 40%, var(--teal-dark) 100%);
+  border-top: none;
+  border-bottom: none;
   padding: 1.25rem 0;
 }
 .trust-items {
@@ -408,10 +417,11 @@ export default {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.88rem;
-  color: var(--text-muted);
+  color: rgba(255,255,255,0.7);
   font-weight: 500;
 }
-.trust-item span { color: var(--text-secondary); }
+.trust-item span { color: #fff; }
+.trust-item .icon-sm { color: var(--amber); }
 
 /* Products Grid */
 .section-header {
@@ -437,6 +447,7 @@ export default {
   transition: all var(--transition);
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow-sm);
 }
 .product-card:hover {
   border-color: var(--border-hover);
@@ -444,8 +455,17 @@ export default {
   transform: translateY(-4px);
 }
 .product-card.featured {
-  border-color: rgba(37,168,100,0.3);
-  box-shadow: 0 0 40px rgba(37,168,100,0.08);
+  border-color: rgba(34,179,107,0.4);
+  box-shadow: 0 8px 32px rgba(34,179,107,0.12);
+}
+.product-card:nth-child(2) {
+  border-top: 3px solid var(--sky);
+}
+.product-card:nth-child(3) {
+  border-top: 3px solid var(--amber);
+}
+.product-card.featured {
+  border-top: 3px solid var(--green-500);
 }
 .product-card-image {
   position: relative;
@@ -492,11 +512,15 @@ export default {
   gap: 0.5rem;
 }
 .spec span { color: var(--text-muted); }
-.spec strong { color: var(--green-300); text-align: right; }
+.spec strong { color: var(--green-700); text-align: right; }
 .product-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: auto; }
 
 /* About Strip */
-.about-strip { background: var(--surface-1); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.about-strip {
+  background: linear-gradient(135deg, var(--amber-soft) 0%, var(--surface-1) 40%, var(--teal-soft) 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
 .about-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -513,11 +537,17 @@ export default {
 }
 .highlight-item strong { display: block; color: var(--text-primary); margin-bottom: 0.25rem; }
 .highlight-item p { font-size: 0.88rem; margin: 0; }
-.icon-circle { 
+.icon-circle {
   display: flex; align-items: center; justify-content: center;
-  width: 48px; height: 48px; 
-  background: rgba(37,168,100,0.1); 
-  border-radius: 50%; color: var(--green-400); 
+  width: 48px; height: 48px;
+  background: var(--green-50);
+  border-radius: 50%; color: var(--green-600);
+  border: 1px solid rgba(34,179,107,0.25);
+}
+.highlight-item:nth-child(2) .icon-circle {
+  background: var(--amber-soft);
+  color: var(--amber-dark);
+  border-color: rgba(232,155,30,0.3);
 }
 .about-visual {
   display: flex;
@@ -526,13 +556,13 @@ export default {
   align-items: center;
 }
 .visual-card {
-  background: var(--surface-2);
+  background: var(--surface-1);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 2rem;
   text-align: center;
   width: 100%;
-  box-shadow: var(--shadow-glow);
+  box-shadow: var(--shadow-md);
 }
 .vc-icon { margin-bottom: 0.75rem; display: flex; justify-content: center; }
 .vc-title {
@@ -543,7 +573,7 @@ export default {
   margin-bottom: 0.5rem;
 }
 .vc-addr { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0.5rem; }
-.vc-phone { font-size: 0.88rem; color: var(--green-400); }
+.vc-phone { font-size: 0.88rem; color: var(--green-700); font-weight: 600; }
 .values-mini {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -551,7 +581,7 @@ export default {
   width: 100%;
 }
 .vm-item {
-  background: var(--surface-2);
+  background: var(--surface-1);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   padding: 0.75rem;
@@ -560,9 +590,17 @@ export default {
   color: var(--text-secondary);
   font-weight: 500;
   display: flex; align-items: center; justify-content: center; gap: 0.25rem;
+  box-shadow: var(--shadow-sm);
 }
+.vm-item:nth-child(1) { border-left: 3px solid var(--green-500); }
+.vm-item:nth-child(2) { border-left: 3px solid var(--sky); }
+.vm-item:nth-child(3) { border-left: 3px solid var(--amber); }
+.vm-item:nth-child(4) { border-left: 3px solid var(--teal); }
 
 /* Environment */
+.env-section {
+  background: linear-gradient(180deg, var(--teal-soft) 0%, var(--bg) 100%);
+}
 .env-inner {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -584,20 +622,20 @@ export default {
 .env-big-icon {
   position: relative;
   z-index: 2;
-  filter: drop-shadow(0 0 20px rgba(37,168,100,0.5));
+  filter: drop-shadow(0 8px 20px rgba(26,166,160,0.35));
   animation: float 3s ease-in-out infinite;
 }
 .ring {
   position: absolute;
   border-radius: 50%;
-  border: 1px solid rgba(37,168,100,0.2);
+  border: 1px solid rgba(26,166,160,0.3);
 }
-.ring-1 { width: 140px; height: 140px; animation: ringPulse 3s ease infinite; }
-.ring-2 { width: 180px; height: 180px; animation: ringPulse 3s ease infinite 0.5s; }
-.ring-3 { width: 220px; height: 220px; animation: ringPulse 3s ease infinite 1s; }
+.ring-1 { width: 140px; height: 140px; animation: ringPulse 3s ease infinite; border-color: rgba(34,179,107,0.35); }
+.ring-2 { width: 180px; height: 180px; animation: ringPulse 3s ease infinite 0.5s; border-color: rgba(26,166,160,0.3); }
+.ring-3 { width: 220px; height: 220px; animation: ringPulse 3s ease infinite 1s; border-color: rgba(232,155,30,0.25); }
 @keyframes ringPulse {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.1; transform: scale(1.05); }
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.15; transform: scale(1.05); }
 }
 .env-text h2 { margin: 0.75rem 0 1rem; }
 .env-text p { margin-bottom: 1.5rem; }
@@ -613,13 +651,30 @@ export default {
   font-size: 0.95rem;
   display: flex;
   align-items: center;
+  background: var(--surface-1);
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
 }
+.env-list li .icon-sm { color: var(--teal); }
 
 /* CTA Banner */
 .cta-banner {
   padding: 5rem 0;
-  background: linear-gradient(135deg, var(--surface-1) 0%, var(--surface-2) 100%);
-  border-top: 1px solid var(--border);
+  background: linear-gradient(135deg, var(--green-800) 0%, var(--green-700) 45%, var(--teal-dark) 100%);
+  border-top: none;
+  position: relative;
+  overflow: hidden;
+}
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(232,155,30,0.25), transparent 70%);
+  pointer-events: none;
 }
 .cta-inner {
   display: flex;
@@ -627,10 +682,30 @@ export default {
   justify-content: space-between;
   gap: 2rem;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
 }
-.cta-text h2 { margin-bottom: 0.5rem; }
-.cta-text p { max-width: 500px; }
+.cta-text h2 { margin-bottom: 0.5rem; color: #fff; }
+.cta-text h2 .gradient-text {
+  background: linear-gradient(135deg, #ffe08a, #fff, #7ee0db);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.cta-text p { max-width: 500px; color: rgba(255,255,255,0.85); }
 .cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.cta-actions .btn-primary {
+  background: linear-gradient(135deg, var(--amber-dark), var(--amber));
+  box-shadow: 0 4px 20px rgba(232,155,30,0.4);
+}
+.cta-actions .btn-amber {
+  background: rgba(255,255,255,0.15);
+  border: 1.5px solid rgba(255,255,255,0.5);
+  box-shadow: none;
+}
+.cta-actions .btn-amber:hover {
+  background: rgba(255,255,255,0.25);
+}
 
 @media (max-width: 900px) {
   .hero-split { grid-template-columns: 1fr; gap: 2rem; }

@@ -182,7 +182,9 @@ export default {
 .page-hero {
   padding: 5rem 0 3rem;
   text-align: center;
-  background: radial-gradient(ellipse at top, rgba(37,168,100,0.08) 0%, transparent 60%);
+  background:
+    radial-gradient(ellipse at 20% top, rgba(34,179,107,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% top, rgba(43,159,217,0.1) 0%, transparent 45%);
   border-bottom: 1px solid var(--border);
 }
 .page-hero h1 { margin: 0.75rem 0 1rem; }
@@ -239,7 +241,7 @@ export default {
 }
 .spec-row:last-child { border-bottom: none; }
 .spec-row span { color: var(--text-muted); }
-.spec-row strong { color: var(--green-200); text-align: right; }
+.spec-row strong { color: var(--green-700); text-align: right; }
 .specs-note {
   margin-top: 1rem;
   font-size: 0.8rem;
@@ -272,12 +274,15 @@ export default {
   transform: translateY(-4px);
   box-shadow: var(--shadow-glow);
 }
-.size-icon { margin-bottom: 0.75rem; color: var(--green-400); }
+.size-icon { margin-bottom: 0.75rem; color: var(--green-600); }
+.size-card:nth-child(2) .size-icon { color: var(--teal); }
+.size-card:nth-child(3) .size-icon { color: var(--amber-dark); }
+.size-card:nth-child(4) .size-icon { color: var(--sky); }
 .size-oz {
   font-family: 'Outfit', sans-serif;
   font-size: 1.4rem;
   font-weight: 800;
-  color: var(--green-300);
+  color: var(--green-700);
   margin-bottom: 0.25rem;
 }
 .size-label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem; }
@@ -337,7 +342,7 @@ export default {
 /* Enterprise */
 .enterprise-cta {
   padding: 5rem 0;
-  background: linear-gradient(135deg, var(--surface-2), var(--surface-1));
+  background: linear-gradient(135deg, var(--amber-soft), var(--teal-soft));
 }
 .ent-inner {
   display: flex;
@@ -350,7 +355,7 @@ export default {
 .ent-text h2 { margin-bottom: 0.5rem; }
 
 .icon-inline { width: 16px; height: 16px; margin-right: 4px; vertical-align: text-bottom; }
-.icon-md { width: 24px; height: 24px; color: var(--green-400); }
+.icon-md { width: 24px; height: 24px; color: var(--green-600); }
 .icon-lg { width: 32px; height: 32px; }
 .icon-xl { width: 40px; height: 40px; }
 

@@ -151,7 +151,9 @@ export default {
 .page-hero {
   padding: 5rem 0 3rem;
   text-align: center;
-  background: radial-gradient(ellipse at top, rgba(37,168,100,0.08) 0%, transparent 60%);
+  background:
+    radial-gradient(ellipse at 20% top, rgba(34,179,107,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% top, rgba(232,155,30,0.1) 0%, transparent 45%);
   border-bottom: 1px solid var(--border);
 }
 .page-hero h1 { margin: 0.75rem 0 1rem; }
@@ -171,7 +173,7 @@ export default {
   position: absolute;
   left: 8px; top: 0; bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, var(--green-600), var(--green-800));
+  background: linear-gradient(to bottom, var(--green-500), var(--teal), var(--amber));
 }
 .tl-item {
   position: relative;
@@ -186,13 +188,13 @@ export default {
   width: 14px; height: 14px;
   border-radius: 50%;
   background: var(--green-500);
-  border: 3px solid var(--green-900);
-  box-shadow: 0 0 10px rgba(37,168,100,0.5);
+  border: 3px solid var(--surface-1);
+  box-shadow: 0 0 0 2px var(--amber), 0 4px 12px rgba(34,179,107,0.35);
 }
 .tl-year {
   font-size: 0.78rem;
   font-weight: 700;
-  color: var(--green-400);
+  color: var(--amber-dark);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   display: block;
@@ -210,7 +212,10 @@ export default {
   gap: 1.5rem;
 }
 .value-card { text-align: center; }
-.value-icon { margin-bottom: 1rem; color: var(--green-400); }
+.value-icon { margin-bottom: 1rem; color: var(--green-600); }
+.value-card:nth-child(2) .value-icon { color: var(--teal); }
+.value-card:nth-child(3) .value-icon { color: var(--amber-dark); }
+.value-card:nth-child(4) .value-icon { color: var(--sky); }
 .value-card h3 { margin-bottom: 0.5rem; }
 
 .location-section { }
@@ -232,7 +237,7 @@ export default {
   line-height: 1.6;
   transition: color var(--transition);
 }
-.loc-item a:hover { color: var(--green-300); }
+.loc-item a:hover { color: var(--green-600); }
 .map-card {
   background: var(--surface-1);
   border: 1px solid var(--border);

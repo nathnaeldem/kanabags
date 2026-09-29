@@ -149,7 +149,9 @@ export default {
 .page-hero {
   padding: 5rem 0 3rem;
   text-align: center;
-  background: radial-gradient(ellipse at top, rgba(37,168,100,0.1) 0%, transparent 60%);
+  background:
+    radial-gradient(ellipse at 30% top, rgba(26,166,160,0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% top, rgba(34,179,107,0.1) 0%, transparent 45%);
   border-bottom: 1px solid var(--border);
 }
 .page-hero h1 { margin: 0.75rem 0 1rem; }
@@ -235,8 +237,11 @@ export default {
   font-family: 'Outfit', sans-serif;
   font-size: 1.8rem;
   font-weight: 800;
-  color: var(--green-300);
+  color: var(--green-700);
 }
+.pillar-card:nth-child(2) .ps-num { color: var(--teal); }
+.pillar-card:nth-child(3) .ps-num { color: var(--amber-dark); }
+.pillar-card:nth-child(4) .ps-num { color: var(--sky); }
 .ps-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
 
 .certs-grid {
@@ -256,17 +261,23 @@ export default {
 
 .impact-section {
   padding: 6rem 0;
-  background: linear-gradient(135deg, var(--green-900) 0%, var(--green-800) 50%, var(--green-900) 100%);
-  border-top: 1px solid var(--border);
+  background: linear-gradient(135deg, var(--green-800) 0%, var(--green-700) 45%, var(--teal-dark) 100%);
+  border-top: none;
   text-align: center;
 }
-.impact-inner h2 { margin-bottom: 1rem; font-size: clamp(1.8rem, 3vw, 2.8rem); }
-.impact-inner p { max-width: 600px; margin: 0 auto 2.5rem; font-size: 1.05rem; }
+.impact-inner h2 { margin-bottom: 1rem; font-size: clamp(1.8rem, 3vw, 2.8rem); color: #fff; }
+.impact-inner h2 .gradient-text {
+  background: linear-gradient(135deg, #ffe08a, #fff, #7ee0db);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.impact-inner p { max-width: 600px; margin: 0 auto 2.5rem; font-size: 1.05rem; color: rgba(255,255,255,0.85); }
 .impact-actions { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
 
 .icon-inline { width: 16px; height: 16px; margin-right: 4px; vertical-align: text-bottom; }
 .icon-xl { width: 40px; height: 40px; }
-.text-green { color: var(--green-400); }
+.text-green { color: var(--green-600); }
 
 @media (max-width: 900px) {
   .env-main-grid { grid-template-columns: 1fr; }

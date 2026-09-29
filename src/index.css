@@ -1,6 +1,6 @@
 /* ============================================================
    KanaBags LLC – Global Design System
-   Green Monochromatic Theme
+   Vibrant Eco Theme (green chrome + colorful accents)
    ============================================================ */
 
 /* ---------- Fonts & Reset ---------- */
@@ -9,42 +9,68 @@
 html { scroll-behavior: smooth; font-size: 16px; zoom: 90%; }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: #071a0f;
-  color: #d4ecd9;
+  font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 0% 0%, rgba(34, 179, 107, 0.08), transparent 50%),
+    radial-gradient(ellipse 60% 40% at 100% 10%, rgba(26, 166, 160, 0.07), transparent 45%),
+    radial-gradient(ellipse 50% 30% at 50% 100%, rgba(232, 155, 30, 0.05), transparent 40%);
+  background-attachment: fixed;
+  color: var(--text-secondary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
 /* ---------- CSS Custom Properties ---------- */
 :root {
-  --green-950: #030d07;
-  --green-900: #071a0f;
-  --green-800: #0e3320;
-  --green-700: #165c38;
-  --green-600: #1e8550;
-  --green-500: #25a864;
-  --green-400: #3cc97b;
-  --green-300: #6fdba0;
+  /* Brand greens — nav, footer, primary CTAs */
+  --green-950: #042015;
+  --green-900: #0a3d28;
+  --green-800: #0f5235;
+  --green-700: #167a4a;
+  --green-600: #1e9a5c;
+  --green-500: #22b36b;
+  --green-400: #3dcf84;
+  --green-300: #6ee0a4;
   --green-200: #a8edc2;
   --green-100: #d4f5e2;
   --green-50:  #edfaf3;
 
-  --text-primary: #edf9f2;
-  --text-secondary: #9dd4b3;
-  --text-muted: #5f9c79;
+  /* Vibrant accent palette */
+  --teal: #1aa6a0;
+  --teal-dark: #12807b;
+  --teal-soft: #e4f7f6;
+  --amber: #e89b1e;
+  --amber-dark: #c47d0e;
+  --amber-soft: #fff4df;
+  --sky: #2b9fd9;
+  --sky-soft: #e3f4fc;
+  --coral: #e85d4c;
+  --coral-soft: #fdecea;
+  --lime: #7cb342;
 
-  --surface-1: #0e2218;
-  --surface-2: #132a1e;
-  --surface-3: #1a3828;
+  /* Light page surfaces */
+  --bg: #f3faf6;
+  --surface-1: #ffffff;
+  --surface-2: #eef8f2;
+  --surface-3: #e2f3ea;
 
-  --border: rgba(61, 179, 107, 0.15);
-  --border-hover: rgba(61, 179, 107, 0.4);
+  --text-primary: #0c2a1c;
+  --text-secondary: #3a5c4a;
+  --text-muted: #6b8f7a;
 
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.4);
-  --shadow-md: 0 8px 32px rgba(0,0,0,0.5);
-  --shadow-lg: 0 20px 60px rgba(0,0,0,0.6);
-  --shadow-glow: 0 0 40px rgba(37, 168, 100, 0.2);
+  /* Light-on-green (nav / footer) */
+  --on-green: #edf9f2;
+  --on-green-muted: #9dd4b3;
+  --on-green-dim: #5f9c79;
+
+  --border: rgba(22, 122, 74, 0.14);
+  --border-hover: rgba(22, 122, 74, 0.4);
+
+  --shadow-sm: 0 2px 10px rgba(12, 42, 28, 0.06);
+  --shadow-md: 0 10px 36px rgba(12, 42, 28, 0.1);
+  --shadow-lg: 0 20px 50px rgba(12, 42, 28, 0.14);
+  --shadow-glow: 0 8px 32px rgba(34, 179, 107, 0.18);
 
   --radius-sm: 8px;
   --radius-md: 14px;
@@ -57,9 +83,9 @@ body {
 
 /* ---------- Scrollbar ---------- */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--green-900); }
-::-webkit-scrollbar-thumb { background: var(--green-700); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--green-500); }
+::-webkit-scrollbar-track { background: var(--surface-2); }
+::-webkit-scrollbar-thumb { background: var(--green-400); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--green-600); }
 
 /* ---------- Typography ---------- */
 h1, h2, h3, h4, h5 {
@@ -75,6 +101,7 @@ h4 { font-size: 1.1rem; font-weight: 600; }
 
 p { color: var(--text-secondary); line-height: 1.8; }
 a { text-decoration: none; color: inherit; }
+strong { color: var(--text-primary); }
 
 /* ---------- Layout ---------- */
 .container {
@@ -94,7 +121,7 @@ a { text-decoration: none; color: inherit; }
   gap: 0.5rem;
   padding: 0.875rem 2rem;
   border-radius: var(--radius-md);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
@@ -105,34 +132,54 @@ a { text-decoration: none; color: inherit; }
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--green-500), var(--green-400));
+  background: linear-gradient(135deg, var(--green-600), var(--green-500));
   color: #fff;
-  box-shadow: 0 4px 20px rgba(37, 168, 100, 0.4);
+  box-shadow: 0 4px 18px rgba(34, 179, 107, 0.35);
 }
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--green-400), var(--green-300));
+  background: linear-gradient(135deg, var(--green-500), var(--green-400));
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(37, 168, 100, 0.6);
+  box-shadow: 0 8px 28px rgba(34, 179, 107, 0.45);
 }
 
 .btn-outline {
   background: transparent;
-  color: var(--green-400);
-  border: 1.5px solid var(--green-600);
+  color: var(--green-700);
+  border: 1.5px solid var(--green-500);
 }
 .btn-outline:hover {
-  background: rgba(37, 168, 100, 0.1);
-  border-color: var(--green-400);
+  background: rgba(34, 179, 107, 0.08);
+  border-color: var(--green-600);
   transform: translateY(-2px);
 }
 
+.btn-teal {
+  background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(26, 166, 160, 0.35);
+}
+.btn-teal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(26, 166, 160, 0.45);
+}
+
+.btn-amber {
+  background: linear-gradient(135deg, var(--amber-dark), var(--amber));
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(232, 155, 30, 0.35);
+}
+.btn-amber:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(232, 155, 30, 0.45);
+}
+
 .btn-ghost {
-  background: rgba(37, 168, 100, 0.08);
-  color: var(--green-400);
+  background: var(--surface-2);
+  color: var(--green-700);
   border: 1px solid var(--border);
 }
 .btn-ghost:hover {
-  background: rgba(37, 168, 100, 0.18);
+  background: var(--green-50);
   border-color: var(--border-hover);
 }
 
@@ -145,6 +192,7 @@ a { text-decoration: none; color: inherit; }
   border-radius: var(--radius-lg);
   padding: 2rem;
   transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
 }
 .card:hover {
   border-color: var(--border-hover);
@@ -154,7 +202,7 @@ a { text-decoration: none; color: inherit; }
 
 /* ---------- Glass effect ---------- */
 .glass {
-  background: rgba(14, 34, 24, 0.7);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border);
@@ -169,17 +217,29 @@ a { text-decoration: none; color: inherit; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: var(--green-400);
-  background: rgba(37, 168, 100, 0.1);
-  border: 1px solid rgba(37, 168, 100, 0.25);
+  color: var(--green-700);
+  background: var(--green-50);
+  border: 1px solid rgba(34, 179, 107, 0.3);
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
   margin-bottom: 1rem;
 }
 
+.section-label-teal {
+  color: var(--teal-dark);
+  background: var(--teal-soft);
+  border-color: rgba(26, 166, 160, 0.35);
+}
+
+.section-label-amber {
+  color: var(--amber-dark);
+  background: var(--amber-soft);
+  border-color: rgba(232, 155, 30, 0.35);
+}
+
 /* ---------- Gradient Text ---------- */
 .gradient-text {
-  background: linear-gradient(135deg, var(--green-300), var(--green-400), var(--green-200));
+  background: linear-gradient(135deg, var(--green-600), var(--teal), var(--amber));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -202,12 +262,12 @@ a { text-decoration: none; color: inherit; }
 .form-input,
 .form-select,
 .form-textarea {
-  background: var(--surface-2);
+  background: var(--surface-1);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   padding: 0.875rem 1rem;
   color: var(--text-primary);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.95rem;
   width: 100%;
   transition: all var(--transition);
@@ -218,8 +278,8 @@ a { text-decoration: none; color: inherit; }
 .form-select:focus,
 .form-textarea:focus {
   border-color: var(--green-500);
-  box-shadow: 0 0 0 3px rgba(37, 168, 100, 0.15);
-  background: var(--surface-3);
+  box-shadow: 0 0 0 3px rgba(34, 179, 107, 0.15);
+  background: #fff;
 }
 
 .form-input::placeholder,
@@ -228,7 +288,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .form-select option {
-  background: var(--surface-2);
+  background: #fff;
   color: var(--text-primary);
 }
 
@@ -255,14 +315,19 @@ a { text-decoration: none; color: inherit; }
   letter-spacing: 0.08em;
 }
 .badge-green {
-  background: rgba(37, 168, 100, 0.15);
-  color: var(--green-300);
-  border: 1px solid rgba(37, 168, 100, 0.3);
+  background: var(--green-50);
+  color: var(--green-700);
+  border: 1px solid rgba(34, 179, 107, 0.35);
 }
 .badge-coming {
-  background: rgba(37, 100, 168, 0.15);
-  color: #7ab3d9;
-  border: 1px solid rgba(37, 100, 168, 0.3);
+  background: var(--sky-soft);
+  color: var(--sky);
+  border: 1px solid rgba(43, 159, 217, 0.35);
+}
+.badge-amber {
+  background: var(--amber-soft);
+  color: var(--amber-dark);
+  border: 1px solid rgba(232, 155, 30, 0.35);
 }
 
 /* ---------- Icon circle ---------- */
@@ -270,13 +335,14 @@ a { text-decoration: none; color: inherit; }
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: rgba(37, 168, 100, 0.12);
-  border: 1px solid rgba(37, 168, 100, 0.25);
+  background: var(--green-50);
+  border: 1px solid rgba(34, 179, 107, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
   flex-shrink: 0;
+  color: var(--green-600);
 }
 
 /* ---------- Grid helpers ---------- */
@@ -307,8 +373,8 @@ a { text-decoration: none; color: inherit; }
   50% { transform: translateY(-12px); }
 }
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(37,168,100,0.2); }
-  50% { box-shadow: 0 0 40px rgba(37,168,100,0.5); }
+  0%, 100% { box-shadow: 0 0 16px rgba(34,179,107,0.25); }
+  50% { box-shadow: 0 0 32px rgba(34,179,107,0.45); }
 }
 @keyframes shimmer {
   0% { background-position: -200% center; }
@@ -339,7 +405,7 @@ a { text-decoration: none; color: inherit; }
   border: 1px solid var(--green-500);
 }
 .toast-error {
-  background: linear-gradient(135deg, #4a1a1a, #6b2222);
-  color: #ffb3b3;
-  border: 1px solid #8b3a3a;
+  background: linear-gradient(135deg, #9b2c2c, #c53030);
+  color: #fff;
+  border: 1px solid #e53e3e;
 }

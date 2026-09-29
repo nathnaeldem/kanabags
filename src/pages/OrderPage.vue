@@ -247,7 +247,9 @@ export default {
 .page-hero {
   padding: 2.5rem 0 1.5rem;
   text-align: center;
-  background: radial-gradient(ellipse at top, rgba(37,168,100,0.08) 0%, transparent 60%);
+  background:
+    radial-gradient(ellipse at 25% top, rgba(34,179,107,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% top, rgba(232,155,30,0.1) 0%, transparent 45%);
   border-bottom: 1px solid var(--border);
 }
 .page-hero h1 { margin: 0.5rem 0 0.5rem; font-size: 2rem; }
@@ -326,15 +328,15 @@ export default {
 }
 .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 .btn-submit-white {
-  background: #ffffff;
-  color: #0e3320;
+  background: linear-gradient(135deg, var(--green-600), var(--green-500));
+  color: #fff;
   font-weight: 700;
-  box-shadow: 0 4px 20px rgba(255,255,255,0.15);
+  box-shadow: 0 4px 20px rgba(34,179,107,0.35);
 }
 .btn-submit-white:hover {
-  background: #f0faf5;
+  background: linear-gradient(135deg, var(--green-500), var(--green-400));
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(255,255,255,0.25);
+  box-shadow: 0 8px 30px rgba(34,179,107,0.45);
 }
 .success-box, .error-box {
   border-radius: var(--radius-sm);
@@ -342,8 +344,8 @@ export default {
   font-size: 0.9rem;
   margin-bottom: 1rem;
 }
-.success-box { background: rgba(37,168,100,0.1); border: 1px solid var(--green-600); color: var(--green-200); }
-.error-box { background: rgba(168,37,37,0.1); border: 1px solid #6b2222; color: #ffb3b3; }
+.success-box { background: var(--green-50); border: 1px solid var(--green-400); color: var(--green-800); }
+.error-box { background: var(--coral-soft); border: 1px solid var(--coral); color: #9b2c2c; }
 
 /* Sidebar */
 .order-sidebar { display: flex; flex-direction: column; gap: 1rem; }
@@ -359,10 +361,10 @@ export default {
 .step-num {
   width: 22px; height: 22px;
   border-radius: 50%;
-  background: var(--green-800);
-  border: 1px solid var(--green-600);
+  background: var(--green-500);
+  border: 1px solid var(--green-400);
   display: flex; align-items: center; justify-content: center;
-  font-size: 0.7rem; font-weight: 700; color: var(--green-300); flex-shrink: 0;
+  font-size: 0.7rem; font-weight: 700; color: #fff; flex-shrink: 0;
 }
 .step strong { display: block; font-size: 0.85rem; color: var(--text-primary); margin-bottom: 0.15rem; }
 .step p { font-size: 0.75rem; margin: 0; line-height: 1.4; color: var(--text-muted); }
@@ -381,7 +383,7 @@ export default {
   transition: color var(--transition);
 }
 .qc-item:last-child { border-bottom: none; }
-.qc-item:hover { color: var(--green-300); }
+.qc-item:hover { color: var(--green-600); }
 
 .icon-inline { width: 16px; height: 16px; vertical-align: text-bottom; margin-right: 4px; }
 .icon-md { width: 20px; height: 20px; }

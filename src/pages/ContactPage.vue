@@ -155,7 +155,9 @@ export default {
 .page-hero {
   padding: 3rem 0 2rem;
   text-align: center;
-  background: radial-gradient(ellipse at top, rgba(37,168,100,0.08) 0%, transparent 60%);
+  background:
+    radial-gradient(ellipse at 30% top, rgba(26,166,160,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% top, rgba(34,179,107,0.1) 0%, transparent 45%);
   border-bottom: 1px solid var(--border);
 }
 .page-hero h1 { margin: 0.5rem 0 0.5rem; font-size: 2.2rem; }
@@ -200,7 +202,7 @@ export default {
   transition: color var(--transition);
   line-height: 1.4;
 }
-.info-card a:hover { color: var(--green-300); }
+.info-card a:hover { color: var(--green-600); }
 
 .map-link { text-decoration: none; }
 .map-placeholder {
@@ -237,20 +239,20 @@ export default {
 }
 
 .success-box {
-  background: rgba(37,168,100,0.1);
-  border: 1px solid var(--green-600);
+  background: var(--green-50);
+  border: 1px solid var(--green-400);
   border-radius: var(--radius-sm);
   padding: 1rem;
-  color: var(--green-200);
+  color: var(--green-800);
   font-size: 0.9rem;
   margin-bottom: 1rem;
 }
 .error-box {
-  background: rgba(168,37,37,0.1);
-  border: 1px solid #6b2222;
+  background: var(--coral-soft);
+  border: 1px solid var(--coral);
   border-radius: var(--radius-sm);
   padding: 1rem;
-  color: #ffb3b3;
+  color: #9b2c2c;
   font-size: 0.9rem;
   margin-bottom: 1rem;
 }
@@ -258,15 +260,15 @@ export default {
 .icon-inline { width: 16px; height: 16px; margin-right: 4px; vertical-align: text-bottom; }
 .icon-md { width: 20px; height: 20px; }
 .btn-submit-white {
-  background: #ffffff;
-  color: #0e3320;
+  background: linear-gradient(135deg, var(--green-600), var(--green-500));
+  color: #fff;
   font-weight: 700;
-  box-shadow: 0 4px 20px rgba(255,255,255,0.15);
+  box-shadow: 0 4px 20px rgba(34,179,107,0.35);
 }
 .btn-submit-white:hover {
-  background: #f0faf5;
+  background: linear-gradient(135deg, var(--green-500), var(--green-400));
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(255,255,255,0.25);
+  box-shadow: 0 8px 30px rgba(34,179,107,0.45);
 }
 .btn-submit-white:disabled { opacity: 0.6; cursor: not-allowed; }
 
