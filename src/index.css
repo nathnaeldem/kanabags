@@ -144,7 +144,7 @@ strong { color: var(--text-primary); }
 
 .btn-outline {
   background: transparent;
-  color: var(--green-700);
+  color: white;
   border: 1.5px solid var(--green-500);
 }
 .btn-outline:hover {

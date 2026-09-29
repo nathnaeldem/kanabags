@@ -88,7 +88,7 @@
           <h2>Make the <span class="gradient-text">Sustainable Choice</span></h2>
           <p>Every order with KanaBags LLC directly contributes to reducing plastic pollution and supporting responsible forestry. Partner with us and make your brand part of the solution.</p>
           <div class="impact-actions">
-            <router-link to="/order" class="btn btn-primary btn-lg">Start Your Order</router-link>
+            <router-link to="/order" class="btn btn-primary btn-lg" >Start Your Order</router-link>
             <router-link to="/contact" class="btn btn-outline btn-lg">Ask About Our Standards</router-link>
           </div>
         </div>
