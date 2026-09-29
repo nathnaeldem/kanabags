@@ -28,6 +28,108 @@
               </div>
 
               <form v-if="!submitted" @submit.prevent="submitOrder" id="order-form" novalidate>
+                <!-- Partner Type Selection -->
+                <div class="partner-type-section">
+                  <label class="form-label">Partner Type *</label>
+                  <div class="radio-group">
+                    <label class="radio-label">
+                      <input type="radio" v-model="form.partner_type" value="wholesale" required />
+                      <span class="radio-box"></span>
+                      <span>Wholesale Partner</span>
+                    </label>
+                    <label class="radio-label">
+                      <input type="radio" v-model="form.partner_type" value="resale" required />
+                      <span class="radio-box"></span>
+                      <span>Resale Partner</span>
+                    </label>
+                    <label class="radio-label">
+                      <input type="radio" v-model="form.partner_type" value="event_organizer" required />
+                      <span class="radio-box"></span>
+                      <span>Event Organizer</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Wholesale-specific fields -->
+                <div v-if="form.partner_type === 'wholesale'" class="partner-specific-fields">
+                  <div class="form-row form-row-3">
+                    <div class="form-group">
+                      <label class="form-label" for="tax_id">Tax ID / EIN</label>
+                      <input id="tax_id" class="form-input" type="text" v-model="form.tax_id" placeholder="XX-XXXXXXX" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="wholesale_license">Wholesale License #</label>
+                      <input id="wholesale_license" class="form-input" type="text" v-model="form.wholesale_license" placeholder="License number" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="business_type">Business Type</label>
+                      <select id="business_type" class="form-select" v-model="form.business_type">
+                        <option value="">Select type</option>
+                        <option value="corporation">Corporation</option>
+                        <option value="llc">LLC</option>
+                        <option value="partnership">Partnership</option>
+                        <option value="sole_proprietor">Sole Proprietor</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Resale-specific fields -->
+                <div v-if="form.partner_type === 'resale'" class="partner-specific-fields">
+                  <div class="form-row form-row-3">
+                    <div class="form-group">
+                      <label class="form-label" for="resale_certificate">Resale Certificate #</label>
+                      <input id="resale_certificate" class="form-input" type="text" v-model="form.resale_certificate" placeholder="Certificate number" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="store_locations">Number of Store Locations</label>
+                      <input id="store_locations" class="form-input" type="number" v-model="form.store_locations" placeholder="e.g. 5" min="1" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="retail_category">Retail Category</label>
+                      <select id="retail_category" class="form-select" v-model="form.retail_category">
+                        <option value="">Select category</option>
+                        <option value="coffee_shop">Coffee Shop / Café</option>
+                        <option value="restaurant">Restaurant</option>
+                        <option value="grocery">Grocery Store</option>
+                        <option value="boutique">Boutique / Retail</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Event Organizer-specific fields -->
+                <div v-if="form.partner_type === 'event_organizer'" class="partner-specific-fields">
+                  <div class="form-row form-row-3">
+                    <div class="form-group">
+                      <label class="form-label" for="event_name">Event Name</label>
+                      <input id="event_name" class="form-input" type="text" v-model="form.event_name" placeholder="e.g. Summer Music Festival" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="event_date">Event Date</label>
+                      <input id="event_date" class="form-input" type="date" v-model="form.event_date" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="expected_attendees">Expected Attendees</label>
+                      <select id="expected_attendees" class="form-select" v-model="form.expected_attendees">
+                        <option value="">Select range</option>
+                        <option value="under_500">Under 500</option>
+                        <option value="500_2000">500 – 2,000</option>
+                        <option value="2000_10000">2,000 – 10,000</option>
+                        <option value="10000_50000">10,000 – 50,000</option>
+                        <option value="over_50000">Over 50,000</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label" for="venue_address">Venue Address</label>
+                      <input id="venue_address" class="form-input" type="text" v-model="form.venue_address" placeholder="Event venue location" />
+                    </div>
+                  </div>
+                </div>
+
                 <div class="form-row form-row-3">
                   <div class="form-group">
                     <label class="form-label" for="company_name">Company Name *</label>
@@ -204,9 +306,15 @@ export default {
       submitted: false,
       error: null,
       form: {
-        company_name: '', contact_name: '', email: '', phone: '', product_type: '',
+        partner_type: '', company_name: '', contact_name: '', email: '', phone: '', product_type: '',
         monthly_volume: '', lead_time: '', cup_sizes: '', lining: '', request_sample: false,
         shipping_address: '', notes: '',
+        // Wholesale fields
+        tax_id: '', wholesale_license: '', business_type: '',
+        // Resale fields
+        resale_certificate: '', store_locations: '', retail_category: '',
+        // Event Organizer fields
+        event_name: '', event_date: '', expected_attendees: '', venue_address: '',
       },
       steps: [
         { title: 'We Review Your RFP', desc: 'Reviewed within 24 hours.' },
@@ -289,6 +397,50 @@ export default {
   margin-bottom: 0.5rem;
 }
 .sample-checkbox { margin-bottom: 0.75rem; margin-top: 0.5rem; }
+.partner-type-section { margin-bottom: 1rem; }
+.radio-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.radio-label input { display: none; }
+.radio-box {
+  width: 18px; height: 18px;
+  border: 2px solid var(--green-600);
+  border-radius: 50%;
+  background: var(--surface-2);
+  flex-shrink: 0;
+  position: relative;
+  transition: all var(--transition);
+}
+.radio-label input:checked + .radio-box {
+  background: var(--green-500);
+  border-color: var(--green-400);
+}
+.radio-label input:checked + .radio-box::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+.partner-specific-fields {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
 .checkbox-label {
   display: flex;
   align-items: center;
