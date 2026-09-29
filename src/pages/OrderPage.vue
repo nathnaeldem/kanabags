@@ -36,27 +36,27 @@
                       type="button"
                       class="partner-type-btn"
                       :class="{ active: form.partner_type === 'wholesale' }"
-                      @click="form.partner_type = 'wholesale'"
+                      @click="togglePartnerType('wholesale')"
                     >
-                      <span class="btn-icon">📦</span>
+                      <Box class="btn-icon" :size="32" />
                       <span>Wholesale Partner</span>
                     </button>
                     <button 
                       type="button"
                       class="partner-type-btn"
                       :class="{ active: form.partner_type === 'resale' }"
-                      @click="form.partner_type = 'resale'"
+                      @click="togglePartnerType('resale')"
                     >
-                      <span class="btn-icon">🏪</span>
+                      <Store class="btn-icon" :size="32" />
                       <span>Resale Partner</span>
                     </button>
                     <button 
                       type="button"
                       class="partner-type-btn"
                       :class="{ active: form.partner_type === 'event_organizer' }"
-                      @click="form.partner_type = 'event_organizer'"
+                      @click="togglePartnerType('event_organizer')"
                     >
-                      <span class="btn-icon">🎉</span>
+                      <Calendar class="btn-icon" :size="32" />
                       <span>Event Organizer</span>
                     </button>
                   </div>
@@ -305,12 +305,12 @@
 </template>
 
 <script>
-import { ShoppingCart, CheckCircle, XCircle, Package, Rocket, Hourglass, Coffee, ShoppingBag, Phone, Mail } from 'lucide-vue-next'
+import { ShoppingCart, CheckCircle, XCircle, Package, Rocket, Hourglass, Coffee, ShoppingBag, Phone, Mail, Box, Store, Calendar } from 'lucide-vue-next'
 
 export default {
   name: 'OrderPage',
   components: {
-    ShoppingCart, CheckCircle, XCircle, Package, Rocket, Hourglass, Coffee, ShoppingBag, Phone, Mail
+    ShoppingCart, CheckCircle, XCircle, Package, Rocket, Hourglass, Coffee, ShoppingBag, Phone, Mail, Box, Store, Calendar
   },
   data() {
     return {
@@ -337,6 +337,13 @@ export default {
     }
   },
   methods: {
+    togglePartnerType(type) {
+      if (this.form.partner_type === type) {
+        this.form.partner_type = ''
+      } else {
+        this.form.partner_type = type
+      }
+    },
     async submitOrder() {
       this.loading = true
       this.error = null
@@ -442,8 +449,7 @@ export default {
   box-shadow: 0 4px 15px rgba(34,179,107,0.3);
 }
 .partner-type-btn .btn-icon {
-  font-size: 2rem;
-  line-height: 1;
+  color: inherit;
 }
 .partner-specific-fields {
   background: var(--surface-2);
