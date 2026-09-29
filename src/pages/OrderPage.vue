@@ -31,22 +31,34 @@
                 <!-- Partner Type Selection -->
                 <div class="partner-type-section">
                   <label class="form-label">Partner Type *</label>
-                  <div class="radio-group">
-                    <label class="radio-label">
-                      <input type="radio" v-model="form.partner_type" value="wholesale" required />
-                      <span class="radio-box"></span>
+                  <div class="partner-type-buttons">
+                    <button 
+                      type="button"
+                      class="partner-type-btn"
+                      :class="{ active: form.partner_type === 'wholesale' }"
+                      @click="form.partner_type = 'wholesale'"
+                    >
+                      <span class="btn-icon">📦</span>
                       <span>Wholesale Partner</span>
-                    </label>
-                    <label class="radio-label">
-                      <input type="radio" v-model="form.partner_type" value="resale" required />
-                      <span class="radio-box"></span>
+                    </button>
+                    <button 
+                      type="button"
+                      class="partner-type-btn"
+                      :class="{ active: form.partner_type === 'resale' }"
+                      @click="form.partner_type = 'resale'"
+                    >
+                      <span class="btn-icon">🏪</span>
                       <span>Resale Partner</span>
-                    </label>
-                    <label class="radio-label">
-                      <input type="radio" v-model="form.partner_type" value="event_organizer" required />
-                      <span class="radio-box"></span>
+                    </button>
+                    <button 
+                      type="button"
+                      class="partner-type-btn"
+                      :class="{ active: form.partner_type === 'event_organizer' }"
+                      @click="form.partner_type = 'event_organizer'"
+                    >
+                      <span class="btn-icon">🎉</span>
                       <span>Event Organizer</span>
-                    </label>
+                    </button>
                   </div>
                 </div>
 
@@ -398,41 +410,40 @@ export default {
 }
 .sample-checkbox { margin-bottom: 0.75rem; margin-top: 0.5rem; }
 .partner-type-section { margin-bottom: 1rem; }
-.radio-group {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+.partner-type-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
 }
-.radio-label {
+.partner-type-btn {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  cursor: pointer;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-}
-.radio-label input { display: none; }
-.radio-box {
-  width: 18px; height: 18px;
-  border: 2px solid var(--green-600);
-  border-radius: 50%;
+  padding: 1rem 0.75rem;
   background: var(--surface-2);
-  flex-shrink: 0;
-  position: relative;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
   transition: all var(--transition);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
-.radio-label input:checked + .radio-box {
-  background: var(--green-500);
+.partner-type-btn:hover {
+  border-color: var(--green-500);
+  background: var(--surface-3);
+  transform: translateY(-2px);
+}
+.partner-type-btn.active {
+  background: linear-gradient(135deg, var(--green-600), var(--green-500));
   border-color: var(--green-400);
+  color: white;
+  box-shadow: 0 4px 15px rgba(34,179,107,0.3);
 }
-.radio-label input:checked + .radio-box::after {
-  content: '';
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: white;
+.partner-type-btn .btn-icon {
+  font-size: 2rem;
+  line-height: 1;
 }
 .partner-specific-fields {
   background: var(--surface-2);
