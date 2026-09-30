@@ -8,6 +8,21 @@
       </div>
     </section>
 
+    <!-- Commission Banner -->
+    <section class="commission-banner">
+      <div class="container">
+        <div class="banner-content">
+          <div class="banner-icon">
+            <Percent :size="32" />
+          </div>
+          <div class="banner-text">
+            <h3>Earn Up to 25% Commission</h3>
+            <p>Join our partner program and earn competitive commissions on all referred orders. Contact us for details.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
         <div class="order-grid">
@@ -305,12 +320,12 @@
 </template>
 
 <script>
-import { ShoppingCart, CheckCircle, XCircle, Package, Rocket, Hourglass, Coffee, ShoppingBag, Phone, Mail, Box, Store, Calendar } from 'lucide-vue-next'
+import { ShoppingCart, CheckCircle, XCircle, Package, Rocket, Hourglass, Coffee, ShoppingBag, Phone, Mail, Box, Store, Calendar, Percent } from 'lucide-vue-next'
 
 export default {
   name: 'OrderPage',
   components: {
-    ShoppingCart, CheckCircle, XCircle, Package, Rocket, Hourglass, Coffee, ShoppingBag, Phone, Mail, Box, Store, Calendar
+    ShoppingCart, CheckCircle, XCircle, Package, Rocket, Hourglass, Coffee, ShoppingBag, Phone, Mail, Box, Store, Calendar, Percent
   },
   data() {
     return {
@@ -381,6 +396,43 @@ export default {
 }
 .page-hero h1 { margin: 0.5rem 0 0.5rem; font-size: 2rem; }
 .page-hero-sub { color: var(--text-secondary); font-size: 0.95rem; max-width: 560px; margin: 0 auto; }
+
+.commission-banner {
+  background: linear-gradient(135deg, var(--green-600), var(--green-500));
+  padding: 1.5rem 0;
+  margin: 1.5rem 0;
+}
+.banner-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+}
+.banner-icon {
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+.banner-text h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.25rem;
+  color: white;
+  font-weight: 700;
+}
+.banner-text p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+}
 
 .order-grid {
   display: grid;
