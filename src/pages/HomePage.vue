@@ -1,130 +1,122 @@
 <template>
   <div class="home-page">
-    <!-- Hero — ecommerce style -->
-    <section class="hero" aria-label="Hero Banner">
-      <div class="hero-bg">
-        <img src="/hero.jpg" alt="KanaBags factory packaging products" class="hero-img" />
-        <div class="hero-overlay"></div>
+    <!-- 1. Announcement bar -->
+    <div class="announce">
+      <div class="announce-track">
+        <span>Factory-direct paper packaging — made in Lorton, VA</span>
+        <span class="dot">·</span>
+        <span>Skip 45-day importer waits — buy from the manufacturer</span>
+        <span class="dot">·</span>
+        <span>Chips pockets from 10¢ · Cups from 8¢ · Call (571) 632-6843</span>
+        <span class="dot">·</span>
+        <span>Wholesale &amp; partner commissions available</span>
       </div>
+    </div>
 
-      <div class="container hero-content">
-        <div class="hero-copy animate-fade-up">
-          <h1 class="brand-title">KanaBags</h1>
-          <p class="hero-tagline">Factory-direct paper packaging. Skip the middleman.</p>
-          <p class="hero-sub">
-            Chips pockets, ice cream cups, and paper cups manufactured in Lorton, VA —
-            not imported through secondhand merchants. Order from the source.
-          </p>
+    <!-- 2. Hero: left copy + right product slideshow -->
+    <section class="hero" aria-label="Hero">
+      <div class="hero-inner container">
+        <div class="hero-copy">
+          <p class="eyebrow">KanaBags LLC · USA Manufacturer</p>
+          <h1>
+            {{ slides[activeSlide].title }}
+          </h1>
+          <p class="hero-lead">{{ slides[activeSlide].desc }}</p>
           <div class="hero-actions">
-            <router-link to="/order" class="btn-shop">Order now</router-link>
-            <router-link to="/products" class="btn-ghost-light">Shop catalog</router-link>
+            <router-link :to="slides[activeSlide].ctaTo" class="btn-hero-primary">
+              {{ slides[activeSlide].cta }}
+            </router-link>
+            <router-link to="/products" class="btn-hero-ghost">Shop catalog</router-link>
           </div>
+          <ul class="hero-bullets">
+            <li><Factory class="ico" /> Real manufacturer — not a reseller</li>
+            <li><Zap class="ico" /> Faster than overseas importers</li>
+            <li><BadgeDollarSign class="ico" /> Factory &amp; wholesale pricing</li>
+          </ul>
         </div>
 
-        <!-- Product carousel -->
-        <div class="hero-shop animate-fade-up">
-          <div class="shop-track">
-            <router-link
-              v-for="(item, i) in shopProducts"
-              :key="item.name"
-              to="/order"
-              class="shop-card"
-              :class="{ active: i === activeSlide }"
-              @mouseenter="activeSlide = i"
-            >
-              <img :src="item.img" :alt="item.name" />
-              <div class="shop-card-meta">
-                <span class="shop-name">{{ item.name }}</span>
-                <span class="shop-price">{{ item.price }}</span>
+        <div class="hero-slideshow">
+          <div class="slide-stage">
+            <Transition name="fade-slide" mode="out-in">
+              <div :key="activeSlide" class="slide">
+                <img :src="slides[activeSlide].img" :alt="slides[activeSlide].title" />
+                <div class="slide-cap">
+                  <span class="slide-name">{{ slides[activeSlide].product }}</span>
+                  <span class="slide-price">{{ slides[activeSlide].price }}</span>
+                </div>
               </div>
-            </router-link>
+            </Transition>
           </div>
-
-          <div class="shop-controls">
-            <button class="shop-arrow" @click="prevSlide" aria-label="Previous products">
-              <ChevronLeft />
-            </button>
-            <div class="shop-dots">
+          <div class="slide-controls">
+            <button class="slide-btn" @click="prev" aria-label="Previous slide"><ChevronLeft /></button>
+            <div class="slide-dots">
               <button
-                v-for="(_, i) in shopProducts"
-                :key="i"
+                v-for="(s, i) in slides"
+                :key="s.product"
                 class="dot"
-                :class="{ active: i === activeSlide }"
-                @click="activeSlide = i"
-                :aria-label="`Go to product ${i + 1}`"
+                :class="{ on: i === activeSlide }"
+                @click="go(i)"
+                :aria-label="s.product"
               />
             </div>
-            <button class="shop-arrow" @click="nextSlide" aria-label="Next products">
-              <ChevronRight />
+            <button class="slide-btn" @click="next" aria-label="Next slide"><ChevronRight /></button>
+          </div>
+          <div class="slide-thumbs">
+            <button
+              v-for="(s, i) in slides"
+              :key="'t-' + s.product"
+              class="thumb"
+              :class="{ on: i === activeSlide }"
+              @click="go(i)"
+            >
+              <img :src="s.img" :alt="s.product" />
             </button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Why factory-direct -->
-    <section class="section why-section">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-label">Why Buy From Us</div>
-          <h2>Stop Waiting <span class="gradient-text">45 Days</span> on Importers</h2>
-          <p class="section-desc">
-            Most “suppliers” are secondhand merchants — they buy from manufacturers like us,
-            mark it up, then make you wait. Cut them out. Buy factory-direct.
+    <!-- 3. Custom print promo (image + text) -->
+    <section class="section promo">
+      <div class="container promo-grid">
+        <div class="promo-text">
+          <div class="section-label">Custom Printing</div>
+          <h2>Put Your Brand on <span class="gradient-text">Every Cup &amp; Bag</span></h2>
+          <p>
+            Elevate your shop with factory-direct custom print — chips pockets, ice cream cups,
+            and paper cups with your logo. Stand out on every order without importer markups.
           </p>
+          <router-link to="/order" class="btn btn-primary btn-lg">Custom order now</router-link>
         </div>
-
-        <div class="compare-grid">
-          <div class="compare-card bad">
-            <div class="compare-badge">Importers / Resellers</div>
-            <ul>
-              <li><XCircle class="ico" /> 30–45+ day lead times overseas</li>
-              <li><XCircle class="ico" /> Middleman markups on every unit</li>
-              <li><XCircle class="ico" /> No control over production quality</li>
-              <li><XCircle class="ico" /> You’re buying from someone who buys from us</li>
-            </ul>
-          </div>
-          <div class="compare-card good">
-            <div class="compare-badge win">KanaBags — Manufacturer</div>
-            <ul>
-              <li><CheckCircle2 class="ico" /> Made in our Lorton, VA facility</li>
-              <li><CheckCircle2 class="ico" /> Factory pricing — no secondhand markup</li>
-              <li><CheckCircle2 class="ico" /> Faster turnaround for US buyers</li>
-              <li><CheckCircle2 class="ico" /> Custom print & wholesale partner rates</li>
-            </ul>
-            <router-link to="/order" class="btn btn-primary compare-cta">
-              Order from the factory <ArrowRight class="icon-inline" />
-            </router-link>
-          </div>
+        <div class="promo-media">
+          <img src="/your_logo.png" alt="Custom branded KanaBags packaging" />
         </div>
       </div>
     </section>
 
-    <!-- Ecommerce product grid -->
-    <section class="section shop-section" id="shop">
+    <!-- 4. Featured products grid -->
+    <section class="section featured" id="shop">
       <div class="container">
         <div class="section-header">
-          <div class="section-label section-label-amber">Shop Packaging</div>
-          <h2>Wholesale Pricing That <span class="gradient-text">Starts Low</span></h2>
-          <p class="section-desc">Volume pricing for shops, restaurants, distributors, and partners. Starting prices shown — better rates as you scale.</p>
+          <div class="section-label section-label-amber">Featured Packaging</div>
+          <h2>Factory Pricing That <span class="gradient-text">Starts Low</span></h2>
+          <p class="section-desc">Order direct from our Lorton, VA plant. Volume discounts and partner rates available.</p>
         </div>
-
-        <div class="ecom-grid">
-          <article v-for="p in catalog" :key="p.name" class="ecom-card">
-            <div class="ecom-img">
+        <div class="product-grid">
+          <article v-for="p in featured" :key="p.name" class="product-card">
+            <router-link to="/order" class="product-img">
               <img :src="p.img" :alt="p.name" />
-              <span class="ecom-tag" v-if="p.tag">{{ p.tag }}</span>
-            </div>
-            <div class="ecom-body">
+              <span v-if="p.tag" class="tag">{{ p.tag }}</span>
+            </router-link>
+            <div class="product-body">
               <h3>{{ p.name }}</h3>
               <p>{{ p.desc }}</p>
-              <div class="ecom-price-row">
-                <div>
+              <div class="product-foot">
+                <div class="price-block">
                   <span class="from">From</span>
-                  <strong class="price">{{ p.price }}</strong>
-                  <span class="unit">/ unit</span>
+                  <strong>{{ p.price }}</strong>
                 </div>
-                <router-link to="/order" class="btn btn-primary ecom-btn">Order</router-link>
+                <router-link to="/order" class="btn btn-primary order-btn">Order</router-link>
               </div>
             </div>
           </article>
@@ -132,80 +124,133 @@
       </div>
     </section>
 
-    <!-- Partner / commission -->
-    <section class="section partner-section">
+    <!-- 5. Shop categories — accordion left + image right (inspo pattern) -->
+    <section class="section shop-cats">
+      <div class="container cats-grid">
+        <div class="cats-list">
+          <h2>Shop Our <span class="gradient-text">Packaging</span></h2>
+          <p class="cats-intro">Hover or tap a category — see the product, then order factory-direct.</p>
+          <div
+            v-for="(cat, i) in categories"
+            :key="cat.name"
+            class="cat-item"
+            :class="{ open: i === activeCat }"
+            @mouseenter="activeCat = i"
+            @click="activeCat = i"
+          >
+            <button class="cat-btn" type="button">
+              <span class="cat-num">0{{ i + 1 }}.</span>
+              <span class="cat-name">{{ cat.name }}</span>
+              <ArrowRight class="cat-arrow" />
+            </button>
+            <div class="cat-body">
+              <p>{{ cat.desc }}</p>
+              <div class="cat-meta">
+                <strong>{{ cat.price }}</strong>
+                <router-link to="/order" class="cat-link">Order now</router-link>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cats-visual">
+          <Transition name="fade-slide" mode="out-in">
+            <div :key="activeCat" class="cats-frame">
+              <img :src="categories[activeCat].img" :alt="categories[activeCat].name" />
+              <div class="cats-cap">
+                <span>{{ categories[activeCat].name }}</span>
+                <em>{{ categories[activeCat].price }}</em>
+              </div>
+            </div>
+          </Transition>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Why manufacturer / promises -->
+    <section class="section promises">
       <div class="container">
-        <div class="partner-inner">
-          <div class="partner-copy">
-            <div class="section-label section-label-teal">Wholesale & Partners</div>
-            <h2>Earn With Us — Become a <span class="gradient-text">KanaBags Partner</span></h2>
-            <p>
-              We offer commissions and wholesale rates for people and businesses who sell,
-              distribute, or introduce buyers. Importers make money sitting between you and the factory —
-              now you can take that cut instead.
-            </p>
-            <ul class="partner-perks">
-              <li><Handshake class="ico" /> Wholesale partner pricing & volume tiers</li>
-              <li><BadgeDollarSign class="ico" /> Resale / referral commissions</li>
-              <li><Users class="ico" /> Dedicated support for active partners</li>
-              <li><Truck class="ico" /> Priority production for partner orders</li>
+        <div class="section-header left">
+          <div class="section-label">What We Promise</div>
+          <h2>Buy From the <span class="gradient-text">Source</span></h2>
+        </div>
+        <div class="promise-grid">
+          <div v-for="item in promises" :key="item.title" class="promise">
+            <div class="promise-ico"><component :is="item.icon" /></div>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.desc }}</p>
+          </div>
+        </div>
+
+        <div class="compare">
+          <div class="compare-col bad">
+            <h3>Importers &amp; resellers</h3>
+            <ul>
+              <li><XCircle class="x" /> 30–45+ day overseas waits</li>
+              <li><XCircle class="x" /> Middleman markups every unit</li>
+              <li><XCircle class="x" /> They buy from manufacturers like us</li>
             </ul>
-            <div class="partner-actions">
-              <router-link to="/order" class="btn btn-amber btn-lg">Apply as Partner</router-link>
-              <router-link to="/contact" class="btn btn-outline btn-lg">Talk to Sales</router-link>
-            </div>
           </div>
-          <div class="partner-stats">
-            <div class="pstat">
-              <span class="pstat-num">0¢–10¢</span>
-              <span class="pstat-label">Entry unit pricing</span>
-            </div>
-            <div class="pstat">
-              <span class="pstat-num">USA</span>
-              <span class="pstat-label">Manufactured in Virginia</span>
-            </div>
-            <div class="pstat">
-              <span class="pstat-num">Direct</span>
-              <span class="pstat-label">No importer middlemen</span>
-            </div>
-            <div class="pstat">
-              <span class="pstat-num">Custom</span>
-              <span class="pstat-label">Print & private label</span>
-            </div>
+          <div class="compare-col good">
+            <h3>KanaBags — manufacturer</h3>
+            <ul>
+              <li><CheckCircle2 class="c" /> Made in Lorton, VA</li>
+              <li><CheckCircle2 class="c" /> Factory pricing, no secondhand cut</li>
+              <li><CheckCircle2 class="c" /> Wholesale &amp; partner commissions</li>
+            </ul>
+            <router-link to="/order" class="btn btn-primary">Order from the factory</router-link>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Trust strip -->
-    <section class="trust-bar">
-      <div class="container">
-        <div class="trust-items">
-          <div class="trust-item"><Factory class="icon-sm" /> <span>Real Manufacturer</span></div>
-          <div class="trust-item"><MapPin class="icon-sm" /> <span>Lorton, VA Facility</span></div>
-          <div class="trust-item"><Leaf class="icon-sm" /> <span>Eco Paper Packaging</span></div>
-          <div class="trust-item"><BadgeDollarSign class="icon-sm" /> <span>Wholesale Commissions</span></div>
-          <div class="trust-item"><Zap class="icon-sm" /> <span>Faster Than Importing</span></div>
+    <!-- 7. Partner strip -->
+    <section class="section partners">
+      <div class="container partner-row">
+        <div>
+          <div class="section-label section-label-teal">Wholesale &amp; Partners</div>
+          <h2>Earn With Us — Become a <span class="gradient-text">Partner</span></h2>
+          <p>
+            Distributors, shops, and connectors can earn commissions and wholesale rates.
+            Stop letting importers take the cut — partner with the factory instead.
+          </p>
+        </div>
+        <div class="partner-actions">
+          <router-link to="/order" class="btn btn-amber btn-lg">Apply as partner</router-link>
+          <router-link to="/contact" class="btn btn-outline btn-lg">Talk to sales</router-link>
         </div>
       </div>
     </section>
 
-    <!-- Final CTA -->
-    <section class="cta-banner">
+    <!-- 8. Category tiles -->
+    <section class="section tiles">
       <div class="container">
-        <div class="cta-inner">
-          <div class="cta-text">
-            <h2>Ready to Order From the <span class="gradient-text">Factory</span>?</h2>
-            <p>Get a quote today — chips pockets from 10¢, single-wall cups from 8¢, double-wall from 10¢. Wholesale & partner rates available.</p>
-          </div>
-          <div class="cta-actions">
-            <router-link to="/order" class="btn btn-primary btn-lg animate-pulse-glow">
-              <ShoppingCart class="icon-inline" /> Place Order
-            </router-link>
-            <a href="tel:+15716326843" class="btn btn-amber btn-lg">
-              <Phone class="icon-inline" /> Call (571) 632-6843
-            </a>
-          </div>
+        <div class="section-header">
+          <h2>Shop All Our <span class="gradient-text">Lines</span></h2>
+        </div>
+        <div class="tile-grid">
+          <router-link
+            v-for="t in tiles"
+            :key="t.name"
+            to="/products"
+            class="tile"
+          >
+            <img :src="t.img" :alt="t.name" />
+            <span>{{ t.name }}</span>
+          </router-link>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Final CTA -->
+    <section class="cta">
+      <div class="container cta-inner">
+        <div>
+          <h2>Ready to order from the factory?</h2>
+          <p>Chips pockets from 10¢ · Single-wall cups from 8¢ · Double-wall from 10¢</p>
+        </div>
+        <div class="cta-actions">
+          <router-link to="/order" class="btn-hero-primary">Place order</router-link>
+          <a href="tel:+15716326843" class="btn-hero-ghost dark">(571) 632-6843</a>
         </div>
       </div>
     </section>
@@ -214,536 +259,693 @@
 
 <script>
 import {
-  ArrowRight, CheckCircle2, XCircle, ChevronLeft, ChevronRight,
-  Handshake, BadgeDollarSign, Users, Truck, Factory, MapPin,
-  Leaf, Zap, ShoppingCart, Phone
+  ChevronLeft, ChevronRight, ArrowRight, Factory, Zap, BadgeDollarSign,
+  XCircle, CheckCircle2, Handshake, Truck, Leaf, Users
 } from 'lucide-vue-next'
 
 export default {
   name: 'HomePage',
   components: {
-    ArrowRight, CheckCircle2, XCircle, ChevronLeft, ChevronRight,
-    Handshake, BadgeDollarSign, Users, Truck, Factory, MapPin,
-    Leaf, Zap, ShoppingCart, Phone
+    ChevronLeft, ChevronRight, ArrowRight, Factory, Zap, BadgeDollarSign,
+    XCircle, CheckCircle2, Handshake, Truck, Leaf, Users
   },
   data() {
     return {
       activeSlide: 0,
-      shopProducts: [
-        { name: 'Chips Pocket Bags', price: 'from 10¢', img: '/retail_paperbg.jpg' },
-        { name: 'Ice Cream Cups', price: 'from 8¢', img: '/paper_cup.jpg' },
-        { name: 'Single Wall Cups', price: 'from 8¢', img: '/paper_cup.jpg' },
-        { name: 'Double Wall Cups', price: 'from 10¢', img: '/paper_cup.jpg' },
-        { name: 'Grocery Paper Bags', price: 'Ask quote', img: '/grocery_bag.jpg' },
+      activeCat: 0,
+      _timer: null,
+      _catTimer: null,
+      slides: [
+        {
+          title: 'Custom Printing',
+          desc: 'Brand your chips pockets, ice cream cups, and paper cups with your logo — printed at our Virginia factory.',
+          cta: 'Custom order now',
+          ctaTo: '/order',
+          product: 'Custom Print Packaging',
+          price: 'Ask quote',
+          img: '/your_logo.png',
+        },
+        {
+          title: 'Factory-Direct Cups',
+          desc: 'Ice cream cups and single-wall cups from 8¢. Double-wall from 10¢. No importer middleman.',
+          cta: 'Order cups',
+          ctaTo: '/order',
+          product: 'Ice Cream & Paper Cups',
+          price: 'from 8¢',
+          img: '/image.png',
+        },
+        {
+          title: 'Chips Pocket Bags',
+          desc: 'Grease-ready paper pockets for snacks and takeout — starting at 10¢ per unit, wholesale ready.',
+          cta: 'Order pockets',
+          ctaTo: '/order',
+          product: 'Chips Pocket Bags',
+          price: 'from 10¢',
+          img: '/image_chips.png',
+        },
+        {
+          title: 'Skip the 45-Day Wait',
+          desc: 'Importers buy from manufacturers like us, then make you wait. Cut them out — order from KanaBags.',
+          cta: 'Buy from the source',
+          ctaTo: '/order',
+          product: 'Made in Lorton, VA',
+          price: 'USA factory',
+          img: '/hero.jpg',
+        },
       ],
-      catalog: [
+      featured: [
         {
           name: 'Chips Pocket Paper Bags',
-          desc: 'Grease-resistant paper pockets for chips, snacks, and takeout. Brandable & made for high-volume food service.',
+          desc: 'Snack & takeout pockets. Brandable, high-volume ready.',
           price: '10¢',
           tag: 'Best seller',
-          img: '/retail_paperbg.jpg',
+          img: '/image_chips.png',
         },
         {
           name: 'Ice Cream Cups',
-          desc: 'Food-safe paper cups built for scoops, soft serve, and dessert shops. Custom print available.',
+          desc: 'Food-safe cups for scoops and soft serve shops.',
           price: '8¢',
           tag: 'New',
-          img: '/paper_cup.jpg',
+          img: '/image.png',
         },
         {
           name: 'Single Wall Cups',
-          desc: 'Lightweight paper cups for cold drinks and light hot use. Clean look, factory-direct pricing.',
+          desc: 'Lightweight cups for cold drinks and light hot use.',
           price: '8¢',
           tag: null,
           img: '/paper_cup.jpg',
         },
         {
           name: 'Double Wall Cups',
-          desc: 'Insulated double-wall construction for hot coffee & specialty drinks — no sleeve needed.',
+          desc: 'Insulated hot cups — no sleeve needed.',
           price: '10¢',
           tag: 'Hot drinks',
           img: '/paper_cup.jpg',
         },
+      ],
+      categories: [
+        {
+          name: 'Chips Pocket Bags',
+          desc: 'Grease-resistant paper pockets for chips, fries, and snacks. Built for food service volume.',
+          price: 'From 10¢ / unit',
+          img: '/image_chips.png',
+        },
+        {
+          name: 'Ice Cream Cups',
+          desc: 'Dessert-ready paper cups for scoops and soft serve. Custom print available.',
+          price: 'From 8¢ / unit',
+          img: '/image.png',
+        },
+        {
+          name: 'Single Wall Cups',
+          desc: 'Clean, lightweight paper cups for everyday beverage service.',
+          price: 'From 8¢ / unit',
+          img: '/paper_cup.jpg',
+        },
+        {
+          name: 'Double Wall Cups',
+          desc: 'Premium insulated cups for hot coffee and specialty drinks.',
+          price: 'From 10¢ / unit',
+          img: '/paper_cup.jpg',
+        },
         {
           name: 'Grocery Paper Bags',
-          desc: 'Strong carry bags for grocery and retail. Reinforced handles, eco paper stock.',
-          price: 'Quote',
-          tag: null,
+          desc: 'Strong carry bags with reinforced handles for retail and grocery.',
+          price: 'Volume quote',
           img: '/grocery_bag.jpg',
         },
+      ],
+      promises: [
         {
-          name: 'Custom Print Packaging',
-          desc: 'Private-label printing for your brand — cups, pockets, and bags at manufacturer rates.',
-          price: 'Quote',
-          tag: 'Partners',
-          img: '/your_logo.png',
+          icon: 'Factory',
+          title: 'We Manufacture',
+          desc: 'Produced in our Lorton, VA facility — you buy from the source, not a secondhand merchant.',
         },
+        {
+          icon: 'Zap',
+          title: 'Faster Than Importing',
+          desc: 'Skip 30–45 day overseas lead times. Get packaging without the importer delay.',
+        },
+        {
+          icon: 'BadgeDollarSign',
+          title: 'Factory Pricing',
+          desc: 'Starting 8¢–10¢ on core SKUs. Wholesale tiers as you scale.',
+        },
+        {
+          icon: 'Handshake',
+          title: 'Partner Commissions',
+          desc: 'Resellers and partners can earn — take the cut importers usually keep.',
+        },
+      ],
+      tiles: [
+        { name: 'Chips Pockets', img: '/image_chips.png' },
+        { name: 'Ice Cream Cups', img: '/image.png' },
+        { name: 'Hot Cups', img: '/paper_cup.jpg' },
+        { name: 'Grocery Bags', img: '/grocery_bag.jpg' },
+        { name: 'Custom Print', img: '/your_logo.png' },
+        { name: 'Partner Program', img: '/hero.jpg' },
       ],
     }
   },
   mounted() {
-    this._auto = setInterval(() => this.nextSlide(), 4200)
+    this._timer = setInterval(this.next, 4500)
+    this._catTimer = setInterval(() => {
+      this.activeCat = (this.activeCat + 1) % this.categories.length
+    }, 5000)
   },
   beforeUnmount() {
-    clearInterval(this._auto)
+    clearInterval(this._timer)
+    clearInterval(this._catTimer)
   },
   methods: {
-    nextSlide() {
-      this.activeSlide = (this.activeSlide + 1) % this.shopProducts.length
+    next() {
+      this.activeSlide = (this.activeSlide + 1) % this.slides.length
     },
-    prevSlide() {
-      this.activeSlide = (this.activeSlide - 1 + this.shopProducts.length) % this.shopProducts.length
-    }
-  }
+    prev() {
+      this.activeSlide = (this.activeSlide - 1 + this.slides.length) % this.slides.length
+    },
+    go(i) {
+      this.activeSlide = i
+    },
+  },
 }
 </script>
 
 <style scoped>
 .home-page { overflow-x: hidden; }
 
-/* ===== Hero ===== */
-.hero {
-  position: relative;
-  max-height: 100vh;
-  display: flex;
-  align-items: flex-end;
-  padding: 7.5rem 0 2.5rem;
-}
-.hero-bg { position: absolute; inset: 0; }
-.hero-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(6, 28, 18, 0.55) 0%,
-    rgba(6, 28, 18, 0.45) 40%,
-    rgba(6, 28, 18, 0.78) 100%
-  );
-}
-.hero-content {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
-.hero-copy {
-  max-width: 720px;
-  text-align: left;
-}
-.brand-title {
-  font-size: clamp(3rem, 8vw, 5.5rem);
-  font-weight: 800;
-  color: var(--amber);
-  letter-spacing: -0.03em;
-  margin-bottom: 0.35rem;
-  text-shadow: 0 4px 30px rgba(0,0,0,0.35);
-}
-.hero-tagline {
-  font-size: clamp(1.25rem, 2.5vw, 1.85rem);
-  font-weight: 700;
+/* Announcement */
+.announce {
+  margin-top: 5.5rem;
+  background: linear-gradient(90deg, var(--green-800), var(--green-700), var(--teal-dark));
   color: #fff;
-  margin-bottom: 0.85rem;
-  line-height: 1.3;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.65rem 1rem;
+  overflow: hidden;
 }
-.hero-sub {
-  color: rgba(255,255,255,0.88);
-  font-size: 1.05rem;
-  max-width: 560px;
+.announce-track {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.announce .dot { opacity: 0.5; }
+
+/* Hero split */
+.hero {
+  padding: 3.5rem 0 4rem;
+  background:
+    radial-gradient(ellipse 60% 80% at 0% 20%, rgba(34,179,107,0.1), transparent 55%),
+    radial-gradient(ellipse 50% 60% at 100% 80%, rgba(232,155,30,0.08), transparent 50%),
+    var(--bg);
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 3rem;
+  align-items: center;
+}
+.eyebrow {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-700);
+  margin-bottom: 0.85rem;
+}
+.hero-copy h1 {
+  font-size: clamp(2.4rem, 4.5vw, 3.75rem);
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+  min-height: 2.4em;
+}
+.hero-lead {
+  font-size: 1.08rem;
+  max-width: 34rem;
   margin-bottom: 1.5rem;
-  line-height: 1.7;
+  color: var(--text-secondary);
 }
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.85rem;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
 }
-.btn-shop {
+.btn-hero-primary {
   display: inline-flex;
   align-items: center;
-  padding: 0.95rem 2rem;
+  padding: 0.95rem 1.75rem;
   border-radius: 999px;
   background: var(--amber);
   color: #1a1200;
   font-weight: 800;
-  font-size: 1rem;
-  box-shadow: 0 8px 28px rgba(232,155,30,0.45);
+  box-shadow: 0 8px 24px rgba(232,155,30,0.35);
   transition: all var(--transition);
 }
-.btn-shop:hover {
+.btn-hero-primary:hover {
   transform: translateY(-2px);
   background: #f0ad2e;
 }
-.btn-ghost-light {
+.btn-hero-ghost {
   display: inline-flex;
   align-items: center;
-  padding: 0.95rem 2rem;
+  padding: 0.95rem 1.75rem;
   border-radius: 999px;
-  border: 1.5px solid rgba(255,255,255,0.75);
-  color: #fff;
+  border: 1.5px solid var(--green-600);
+  color: var(--green-800);
   font-weight: 700;
-  font-size: 1rem;
   transition: all var(--transition);
 }
-.btn-ghost-light:hover {
-  background: rgba(255,255,255,0.12);
-  transform: translateY(-2px);
-}
-
-/* Carousel */
-.hero-shop { width: 100%; }
-.shop-track {
-  display: flex;
-  gap: 1rem;
-  padding-bottom: 0.5rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-}
-.shop-track::-webkit-scrollbar { display: none; }
-.shop-card {
-  flex: 0 0 calc(20% - 0.8rem);
-  min-width: 160px;
-  height: 200px;
-  border-radius: 22px;
-  overflow: hidden;
-  position: relative;
-  border: 2px solid transparent;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-  transition: all 0.35s ease;
-  text-decoration: none;
-  scroll-snap-align: center;
-}
-.shop-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-.shop-card:hover img,
-.shop-card.active img { transform: scale(1.06); }
-.shop-card.active {
-  border-color: var(--amber);
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 16px 40px rgba(232,155,30,0.35);
-}
-.shop-card-meta {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  padding: 1.5rem 0.85rem 0.85rem;
-  background: linear-gradient(transparent, rgba(0,0,0,0.85));
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-.shop-name {
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.88rem;
-}
-.shop-price {
-  color: var(--amber);
-  font-weight: 800;
-  font-size: 0.95rem;
-}
-.shop-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1.25rem;
-}
-.shop-arrow {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.45);
-  background: rgba(255,255,255,0.1);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all var(--transition);
-}
-.shop-arrow:hover {
-  background: var(--amber);
-  border-color: var(--amber);
-  color: #1a1200;
-}
-.shop-arrow :deep(svg) { width: 20px; height: 20px; }
-.shop-dots { display: flex; gap: 0.4rem; align-items: center; }
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  border: none;
-  background: rgba(255,255,255,0.35);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0;
-}
-.dot.active {
-  width: 22px;
-  background: var(--amber);
-}
-
-/* ===== Why / Compare ===== */
-.why-section { background: var(--surface-1); }
-.section-header { text-align: center; margin-bottom: 3rem; }
-.section-desc { max-width: 640px; margin: 0.75rem auto 0; font-size: 1.05rem; }
-.compare-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  max-width: 960px;
-  margin: 0 auto;
-}
-.compare-card {
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  border: 1px solid var(--border);
-}
-.compare-card.bad {
-  background: #fff8f7;
-  border-color: rgba(232, 93, 76, 0.25);
-}
-.compare-card.good {
-  background: linear-gradient(160deg, var(--green-50), #fff);
-  border-color: rgba(34, 179, 107, 0.35);
-  box-shadow: var(--shadow-md);
-}
-.compare-badge {
-  display: inline-block;
-  font-size: 0.78rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.35rem 0.8rem;
-  border-radius: 999px;
-  background: var(--coral-soft);
-  color: var(--coral);
-  margin-bottom: 1.25rem;
-}
-.compare-badge.win {
+.btn-hero-ghost:hover {
   background: var(--green-50);
-  color: var(--green-700);
-  border: 1px solid rgba(34,179,107,0.3);
 }
-.compare-card ul {
+.btn-hero-ghost.dark {
+  border-color: rgba(255,255,255,0.55);
+  color: #fff;
+}
+.hero-bullets {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.55rem;
 }
-.compare-card li {
+.hero-bullets li {
   display: flex;
-  align-items: flex-start;
-  gap: 0.65rem;
-  font-size: 0.98rem;
-  color: var(--text-secondary);
-  font-weight: 500;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary);
 }
-.compare-card .ico { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; }
-.compare-card.bad .ico { color: var(--coral); }
-.compare-card.good .ico { color: var(--green-600); }
-.compare-cta { margin-top: 1.5rem; }
-.icon-inline { width: 18px; height: 18px; }
+.hero-bullets .ico {
+  width: 18px;
+  height: 18px;
+  color: var(--green-600);
+}
 
-/* ===== Shop grid ===== */
-.shop-section {
-  background: linear-gradient(180deg, var(--amber-soft) 0%, var(--bg) 30%, var(--bg) 100%);
-}
-.ecom-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-.ecom-card {
-  background: var(--surface-1);
-  border-radius: 22px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-  transition: all var(--transition);
-  display: flex;
-  flex-direction: column;
-}
-.ecom-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--border-hover);
-}
-.ecom-img {
+/* Right slideshow */
+.hero-slideshow { width: 100%; }
+.slide-stage {
   position: relative;
-  height: 200px;
+  border-radius: 28px;
   overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: var(--surface-1);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
 }
-.ecom-img img {
+.slide { position: relative; width: 100%; height: 100%; }
+.slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+}
+.slide-cap {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 1.75rem 1.25rem 1.15rem;
+  background: linear-gradient(transparent, rgba(6,28,18,0.85));
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+}
+.slide-name { color: #fff; font-weight: 700; font-size: 1.05rem; }
+.slide-price { color: var(--amber); font-weight: 800; font-size: 1.1rem; }
+.slide-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+.slide-btn {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  color: var(--green-800);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.slide-btn:hover {
+  background: var(--green-800);
+  color: #fff;
+}
+.slide-btn :deep(svg) { width: 18px; height: 18px; }
+.slide-dots { display: flex; gap: 0.4rem; }
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(12,42,28,0.2);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.25s ease;
+}
+.dot.on { width: 22px; background: var(--amber); }
+.slide-thumbs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+  margin-top: 0.85rem;
+}
+.thumb {
+  border: 2px solid transparent;
+  border-radius: 14px;
+  overflow: hidden;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+  aspect-ratio: 1;
+  opacity: 0.65;
+  transition: all var(--transition);
+}
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.thumb.on, .thumb:hover {
+  opacity: 1;
+  border-color: var(--amber);
+}
+
+.fade-slide-enter-active, .fade-slide-leave-active {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.fade-slide-enter-from { opacity: 0; transform: translateX(12px); }
+.fade-slide-leave-to { opacity: 0; transform: translateX(-12px); }
+
+/* Promo */
+.promo {
+  background: linear-gradient(135deg, var(--amber-soft), var(--surface-1) 45%, var(--teal-soft));
+}
+.promo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.promo-text h2 { margin: 0.75rem 0 1rem; }
+.promo-text p { margin-bottom: 1.5rem; }
+.promo-media {
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+  aspect-ratio: 16 / 10;
+}
+.promo-media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Featured products */
+.section-header { text-align: center; margin-bottom: 2.5rem; }
+.section-header.left { text-align: left; }
+.section-desc { max-width: 560px; margin: 0.75rem auto 0; }
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+.product-card {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.product-img {
+  position: relative;
+  display: block;
+  height: 190px;
+  overflow: hidden;
+}
+.product-img img {
+  width: 100%; height: 100%; object-fit: cover;
   transition: transform 0.4s ease;
 }
-.ecom-card:hover .ecom-img img { transform: scale(1.05); }
-.ecom-tag {
+.product-card:hover .product-img img { transform: scale(1.05); }
+.tag {
   position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
+  top: 0.7rem; left: 0.7rem;
   background: var(--amber);
   color: #1a1200;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 800;
-  padding: 0.3rem 0.7rem;
+  padding: 0.28rem 0.65rem;
   border-radius: 999px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
-.ecom-body {
-  padding: 1.35rem;
+.product-body {
+  padding: 1.15rem;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
-.ecom-body h3 { margin-bottom: 0.4rem; font-size: 1.15rem; }
-.ecom-body p {
-  font-size: 0.9rem;
-  margin-bottom: 1.25rem;
-  flex: 1;
-}
-.ecom-price-row {
+.product-body h3 { font-size: 1.05rem; margin-bottom: 0.35rem; }
+.product-body p { font-size: 0.88rem; flex: 1; margin-bottom: 1rem; }
+.product-foot {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
-  padding-top: 1rem;
+  gap: 0.5rem;
+  padding-top: 0.85rem;
   border-top: 1px solid var(--border);
 }
 .from {
   display: block;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-muted);
   font-weight: 700;
 }
-.price {
+.price-block strong {
   font-family: 'Outfit', sans-serif;
-  font-size: 1.6rem;
-  font-weight: 800;
+  font-size: 1.45rem;
   color: var(--green-700);
 }
-.unit { font-size: 0.8rem; color: var(--text-muted); margin-left: 0.2rem; }
-.ecom-btn { padding: 0.65rem 1.25rem; border-radius: 999px; }
+.order-btn { padding: 0.55rem 1.1rem; border-radius: 999px; }
 
-/* ===== Partner ===== */
-.partner-section {
-  background: linear-gradient(135deg, var(--teal-soft), var(--surface-1) 50%, var(--green-50));
+/* Shop categories */
+.shop-cats {
+  background: var(--surface-1);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
-.partner-inner {
+.cats-grid {
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: center;
 }
-.partner-copy h2 { margin: 0.75rem 0 1rem; }
-.partner-copy > p { margin-bottom: 1.5rem; }
-.partner-perks {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 1.75rem;
+.cats-list h2 { margin-bottom: 0.5rem; }
+.cats-intro { margin-bottom: 1.5rem; }
+.cat-item {
+  border-top: 1px solid var(--border);
+  padding: 0.35rem 0;
 }
-.partner-perks li {
+.cat-item:last-child { border-bottom: 1px solid var(--border); }
+.cat-btn {
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  font-weight: 600;
+  gap: 0.75rem;
+  background: none;
+  border: none;
+  padding: 1rem 0.25rem;
+  cursor: pointer;
+  text-align: left;
   color: var(--text-primary);
-  background: rgba(255,255,255,0.7);
-  padding: 0.7rem 1rem;
-  border-radius: 12px;
-  border: 1px solid var(--border);
 }
-.partner-perks .ico { width: 20px; height: 20px; color: var(--teal); flex-shrink: 0; }
-.partner-actions { display: flex; flex-wrap: wrap; gap: 0.85rem; }
-.partner-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.cat-num {
+  font-weight: 800;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  min-width: 2rem;
+}
+.cat-name {
+  flex: 1;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.cat-arrow {
+  width: 18px; height: 18px;
+  color: var(--text-muted);
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+.cat-item.open .cat-name { color: var(--green-700); }
+.cat-item.open .cat-num { color: var(--amber-dark); }
+.cat-item.open .cat-arrow {
+  color: var(--amber-dark);
+  transform: translateX(4px);
+}
+.cat-body {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.35s ease;
+  padding: 0 0.25rem;
+}
+.cat-item.open .cat-body {
+  max-height: 160px;
+  opacity: 1;
+  padding-bottom: 1rem;
+}
+.cat-body p { font-size: 0.92rem; margin-bottom: 0.75rem; }
+.cat-meta {
+  display: flex;
+  align-items: center;
   gap: 1rem;
 }
-.pstat {
+.cat-meta strong { color: var(--green-700); font-size: 1rem; }
+.cat-link {
+  color: var(--amber-dark);
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+.cats-visual {
+  border-radius: 28px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.cats-frame { position: relative; width: 100%; height: 100%; }
+.cats-frame img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.cats-cap {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 1.5rem 1.25rem 1.1rem;
+  background: linear-gradient(transparent, rgba(6,28,18,0.82));
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  font-weight: 700;
+}
+.cats-cap em {
+  font-style: normal;
+  color: var(--amber);
+  font-weight: 800;
+}
+
+/* Promises */
+.promise-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+.promise {
   background: var(--surface-1);
   border: 1px solid var(--border);
   border-radius: 18px;
-  padding: 1.5rem 1.25rem;
-  text-align: center;
+  padding: 1.5rem;
   box-shadow: var(--shadow-sm);
 }
-.pstat:nth-child(1) { border-top: 3px solid var(--amber); }
-.pstat:nth-child(2) { border-top: 3px solid var(--green-500); }
-.pstat:nth-child(3) { border-top: 3px solid var(--teal); }
-.pstat:nth-child(4) { border-top: 3px solid var(--sky); }
-.pstat-num {
-  display: block;
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
-}
-.pstat-label {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-weight: 600;
-}
-
-/* Trust */
-.trust-bar {
-  background: linear-gradient(90deg, var(--green-800), var(--green-700) 40%, var(--teal-dark) 100%);
-  padding: 1.25rem 0;
-}
-.trust-items {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
-}
-.trust-item {
+.promise-ico {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--green-50);
+  color: var(--green-700);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: #fff;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
-.icon-sm { width: 16px; height: 16px; color: var(--amber); }
+.promise-ico :deep(svg) { width: 22px; height: 22px; }
+.promise h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+.promise p { font-size: 0.88rem; margin: 0; }
+.promise:nth-child(2) .promise-ico { background: var(--amber-soft); color: var(--amber-dark); }
+.promise:nth-child(3) .promise-ico { background: var(--teal-soft); color: var(--teal-dark); }
+.promise:nth-child(4) .promise-ico { background: var(--sky-soft); color: var(--sky); }
+
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+.compare-col {
+  border-radius: 20px;
+  padding: 1.75rem;
+  border: 1px solid var(--border);
+}
+.compare-col.bad { background: #fff8f7; border-color: rgba(232,93,76,0.25); }
+.compare-col.good {
+  background: linear-gradient(160deg, var(--green-50), #fff);
+  border-color: rgba(34,179,107,0.35);
+}
+.compare-col h3 { margin-bottom: 1rem; font-size: 1.15rem; }
+.compare-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.25rem; }
+.compare-col li {
+  display: flex; align-items: center; gap: 0.55rem;
+  font-weight: 500; font-size: 0.95rem; color: var(--text-secondary);
+}
+.x { width: 18px; height: 18px; color: var(--coral); flex-shrink: 0; }
+.c { width: 18px; height: 18px; color: var(--green-600); flex-shrink: 0; }
+
+/* Partners */
+.partners {
+  background: linear-gradient(135deg, var(--teal-soft), var(--green-50));
+}
+.partner-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.partner-row h2 { margin: 0.6rem 0 0.75rem; }
+.partner-row p { max-width: 520px; }
+.partner-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+/* Tiles */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+}
+.tile {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  display: block;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+.tile img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.tile:hover img { transform: scale(1.06); }
+.tile span {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 1.25rem 0.75rem 0.75rem;
+  background: linear-gradient(transparent, rgba(6,28,18,0.85));
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.88rem;
+}
 
 /* CTA */
-.cta-banner {
-  padding: 5rem 0;
-  background: linear-gradient(135deg, var(--green-800) 0%, var(--green-700) 45%, var(--teal-dark) 100%);
-  position: relative;
-  overflow: hidden;
-}
-.cta-banner::before {
-  content: '';
-  position: absolute;
-  top: -40%;
-  right: -10%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(232,155,30,0.25), transparent 70%);
-  pointer-events: none;
+.cta {
+  padding: 4.5rem 0;
+  background: linear-gradient(135deg, var(--green-800), var(--green-700) 50%, var(--teal-dark));
 }
 .cta-inner {
   display: flex;
@@ -751,37 +953,28 @@ export default {
   justify-content: space-between;
   gap: 2rem;
   flex-wrap: wrap;
-  position: relative;
-  z-index: 1;
 }
-.cta-text h2 { margin-bottom: 0.5rem; color: #fff; }
-.cta-text h2 .gradient-text {
-  background: linear-gradient(135deg, #ffe08a, #fff, #7ee0db);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.cta-text p { max-width: 520px; color: rgba(255,255,255,0.85); }
-.cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-.cta-actions .btn-primary {
-  background: linear-gradient(135deg, var(--amber-dark), var(--amber));
-  color: #1a1200;
-  box-shadow: 0 4px 20px rgba(232,155,30,0.4);
-}
+.cta h2 { color: #fff; margin-bottom: 0.4rem; }
+.cta p { color: rgba(255,255,255,0.85); margin: 0; }
+.cta-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
-@media (max-width: 1000px) {
-  .shop-card { flex: 0 0 calc(33% - 0.7rem); }
-  .ecom-grid { grid-template-columns: repeat(2, 1fr); }
-  .partner-inner, .compare-grid { grid-template-columns: 1fr; }
+@media (max-width: 1100px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .promise-grid { grid-template-columns: repeat(2, 1fr); }
+  .tile-grid { grid-template-columns: repeat(3, 1fr); }
 }
-@media (max-width: 700px) {
-  .hero { padding-top: 6.5rem; min-height: auto; }
-  .shop-card { flex: 0 0 calc(70% - 0.5rem); height: 180px; }
-  .ecom-grid { grid-template-columns: 1fr; }
-  .cta-inner { flex-direction: column; text-align: center; }
-  .cta-actions { justify-content: center; }
-  .hero-copy { text-align: center; }
-  .hero-sub { margin-left: auto; margin-right: auto; }
-  .hero-actions { justify-content: center; }
+@media (max-width: 900px) {
+  .announce { margin-top: 4.75rem; }
+  .hero-inner, .promo-grid, .cats-grid, .compare { grid-template-columns: 1fr; }
+  .hero-copy h1 { min-height: 0; }
+  .cats-visual { max-width: 480px; margin: 0 auto; width: 100%; }
+  .cta-inner, .partner-row { flex-direction: column; text-align: center; }
+  .partner-actions, .cta-actions { justify-content: center; }
+  .section-header.left { text-align: center; }
+}
+@media (max-width: 600px) {
+  .product-grid, .promise-grid, .tile-grid { grid-template-columns: 1fr 1fr; }
+  .slide-thumbs { grid-template-columns: repeat(4, 1fr); }
+  .announce-track { font-size: 0.78rem; }
 }
 </style>

@@ -154,7 +154,7 @@ export default {
         {
           name: 'Chips Pocket Paper Bags',
           icon: 'ShoppingBag',
-          bg: '/retail_paperbg.jpg',
+          bg: '/image_chips.png',
           available: true,
           desc: 'Grease-resistant paper pockets for chips and snacks. Starting from 10¢ per unit — factory-direct.',
           features: ['From 10¢ / unit', 'Food-service ready', 'Custom print options', 'High-volume production'],
@@ -162,7 +162,7 @@ export default {
         {
           name: 'Ice Cream Cups',
           icon: 'CupSoda',
-          bg: '/paper_cup.jpg',
+          bg: '/image.png',
           available: true,
           desc: 'Paper ice cream cups for scoops and soft serve. Starting from 8¢. Single & double wall options.',
           features: ['From 8¢ single wall', 'Double wall from 10¢', 'Dessert-shop ready', 'Private label available'],
