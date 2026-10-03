@@ -305,7 +305,7 @@ export default {
 /* ===== Hero ===== */
 .hero {
   position: relative;
-  min-height: 100vh;
+  max-height: 100vh;
   display: flex;
   align-items: flex-end;
   padding: 7.5rem 0 2.5rem;
