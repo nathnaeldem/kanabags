@@ -151,7 +151,7 @@ export default {
 </script>
 
 <style scoped>
-.contact-page { padding-top: 80px; }
+.contact-page { padding-top: 100px; }
 .page-hero {
   padding: 3rem 0 2rem;
   text-align: center;

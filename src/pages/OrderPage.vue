@@ -181,10 +181,15 @@
                     <label class="form-label" for="product_type">Product Type *</label>
                     <select id="product_type" class="form-select" v-model="form.product_type" required>
                       <option value="">Select a product</option>
-                      <option value="paper_cups">Paper Cups (8oz–20oz)</option>
+                      <option value="chips_pockets">Chips Pocket Paper Bags (from 10¢)</option>
+                      <option value="ice_cream_cups">Ice Cream Cups (from 8¢)</option>
+                      <option value="single_wall_cups">Single Wall Cups (from 8¢)</option>
+                      <option value="double_wall_cups">Double Wall Cups (from 10¢)</option>
+                      <option value="paper_cups">Paper Cups Mix (8oz–20oz)</option>
                       <option value="grocery_bags">Grocery Paper Bags</option>
                       <option value="retail_bags">Retail Paper Bags</option>
                       <option value="custom_enterprise">Custom Enterprise Bundle</option>
+                      <option value="partner_program">Partner / Wholesale Program</option>
                       <option value="sample_kit">Free Sample Kit</option>
                     </select>
                   </div>
@@ -204,12 +209,12 @@
                 <div class="form-row">
                   <div class="form-group">
                     <label class="form-label" for="lead_time">Desired Lead Time</label>
-                    <input id="lead_time" class="form-input" type="text" v-model="form.lead_time" placeholder="e.g. 45 Days" />
+                    <input id="lead_time" class="form-input" type="text" v-model="form.lead_time" placeholder="e.g. ASAP — skip 45-day imports" />
                   </div>
                 </div>
 
                 <!-- Customization options for cups -->
-                <div v-if="form.product_type === 'paper_cups'" class="cup-options">
+                <div v-if="['paper_cups','single_wall_cups','double_wall_cups','ice_cream_cups'].includes(form.product_type)" class="cup-options">
                   <div class="form-row">
                     <div class="form-group">
                       <label class="form-label" for="cup_sizes">Cup Sizes Needed</label>
@@ -281,27 +286,27 @@
               <h3>Products Available</h3>
               <div class="product-list">
                 <div class="pl-item">
+                  <ShoppingBag class="icon-md" />
+                  <div>
+                    <strong>Chips Pocket Bags</strong>
+                    <span class="badge badge-green ml">From 10¢</span>
+                    <p>Snack pockets — factory-direct, no importer markup.</p>
+                  </div>
+                </div>
+                <div class="pl-item">
                   <Coffee class="icon-md" />
                   <div>
-                    <strong>Paper Cups (8–20oz)</strong>
-                    <span class="badge badge-green ml">In Stock</span>
-                    <p>FSC-certified, custom print, PLA or aqueous lining.</p>
+                    <strong>Ice Cream &amp; Paper Cups</strong>
+                    <span class="badge badge-green ml">From 8¢</span>
+                    <p>Single wall 8¢ · Double wall 10¢. Custom print OK.</p>
                   </div>
                 </div>
                 <div class="pl-item">
                   <ShoppingCart class="icon-md" />
                   <div>
-                    <strong>Grocery Paper Bags</strong>
-                    <span class="badge badge-green ml">In Stock</span>
-                    <p>Reinforced handles, bulk pricing available.</p>
-                  </div>
-                </div>
-                <div class="pl-item">
-                  <ShoppingBag class="icon-md" />
-                  <div>
-                    <strong>Retail Paper Bags</strong>
-                    <span class="badge badge-coming ml">Coming Soon</span>
-                    <p>Custom branded bags — coming soon.</p>
+                    <strong>Grocery Bags &amp; Partners</strong>
+                    <span class="badge badge-amber ml">Wholesale</span>
+                    <p>Volume rates + commissions for resellers &amp; partners.</p>
                   </div>
                 </div>
               </div>
@@ -385,7 +390,7 @@ export default {
 </script>
 
 <style scoped>
-.order-page { padding-top: 80px; }
+.order-page { padding-top: 100px; }
 .page-hero {
   padding: 2.5rem 0 1.5rem;
   text-align: center;

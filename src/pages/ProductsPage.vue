@@ -4,8 +4,8 @@
     <section class="page-hero">
       <div class="container">
         <div class="section-label">Our Products</div>
-        <h1>Sustainable Packaging <span class="gradient-text">Catalog</span></h1>
-        <p class="page-hero-sub">FSC-certified, high-capacity packaging solutions engineered for QSR, retail, and grocery markets worldwide.</p>
+        <h1>Factory-Direct Packaging <span class="gradient-text">Shop</span></h1>
+        <p class="page-hero-sub">Chips pockets from 10¢ · Ice cream & single-wall cups from 8¢ · Double-wall from 10¢. Manufactured in Lorton, VA — not imported through middlemen.</p>
       </div>
     </section>
 
@@ -15,11 +15,11 @@
         <div class="product-detail-grid">
           <div class="pd-info">
             <div class="section-label"><Coffee class="icon-inline" /> Paper Cups</div>
-            <h2>Premium Industrial <span class="gradient-text">Paper Cups</span></h2>
+            <h2>Ice Cream, Single &amp; <span class="gradient-text">Double Wall Cups</span></h2>
             <p>
-              Engineered for high-volume QSR (Quick Service Restaurant) environments.
-              Our cups feature superior heat retention, eco-friendly linings, and
-              up to 6-color flexographic custom printing to showcase your brand.
+              Factory-direct paper cups for ice cream shops, cafés, and QSR chains.
+              Single wall from 8¢ · Double wall from 10¢. Custom print available —
+              skip importer wait times and buy from the manufacturer.
             </p>
             <div class="pd-highlights">
               <div class="pd-hl"><Sprout class="icon-md" /> <span>FSC-Certified Premium Paperboard</span></div>
@@ -59,8 +59,12 @@
                 <strong>Hot & Cold Beverages</strong>
               </div>
               <div class="spec-row">
+                <span>Starting Price</span>
+                <strong>8¢ single · 10¢ double wall</strong>
+              </div>
+              <div class="spec-row">
                 <span>MOQ</span>
-                <strong>Contact for Enterprise Pricing</strong>
+                <strong>Contact for Wholesale Pricing</strong>
               </div>
             </div>
             <div class="specs-note">
@@ -148,12 +152,20 @@ export default {
       ],
       bags: [
         {
-          name: 'Retail Paper Bags',
+          name: 'Chips Pocket Paper Bags',
           icon: 'ShoppingBag',
           bg: '/retail_paperbg.jpg',
-          available: false,
-          desc: 'Durable and stylish paper bags perfect for retail stores with premium feel and brand presence.',
-          features: ['Various sizes available', 'Custom printing options', 'Reinforced handles', 'Branded design support'],
+          available: true,
+          desc: 'Grease-resistant paper pockets for chips and snacks. Starting from 10¢ per unit — factory-direct.',
+          features: ['From 10¢ / unit', 'Food-service ready', 'Custom print options', 'High-volume production'],
+        },
+        {
+          name: 'Ice Cream Cups',
+          icon: 'CupSoda',
+          bg: '/paper_cup.jpg',
+          available: true,
+          desc: 'Paper ice cream cups for scoops and soft serve. Starting from 8¢. Single & double wall options.',
+          features: ['From 8¢ single wall', 'Double wall from 10¢', 'Dessert-shop ready', 'Private label available'],
         },
         {
           name: 'Grocery Paper Bags',
@@ -164,12 +176,12 @@ export default {
           features: ['Heavy-duty construction', 'Reinforced handles', 'Eco-friendly materials', 'Bulk pricing available'],
         },
         {
-          name: 'Custom Enterprise Bags',
+          name: 'Custom Enterprise Packaging',
           icon: 'Paintbrush',
-          bg: '/paper_cup.jpg',
+          bg: '/your_logo.png',
           available: true,
-          desc: 'Fully custom bags for enterprise retail chains. Up to 6-color flexographic printing and bespoke sizing.',
-          features: ['Full custom design', '6-color printing', 'Custom sizing', 'Dedicated account manager'],
+          desc: 'Private-label cups, pockets, and bags. Manufacturer rates with partner commissions available.',
+          features: ['Full custom design', 'Partner commissions', 'Custom sizing', 'Dedicated account manager'],
         },
       ]
     }
@@ -178,7 +190,7 @@ export default {
 </script>
 
 <style scoped>
-.products-page { padding-top: 80px; }
+.products-page { padding-top: 100px; }
 .page-hero {
   padding: 5rem 0 3rem;
   text-align: center;
@@ -293,7 +305,7 @@ export default {
 .section-desc { max-width: 540px; margin: 0.75rem auto 0; }
 .bags-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
 .bag-card {

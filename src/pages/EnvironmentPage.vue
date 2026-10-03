@@ -145,7 +145,7 @@ export default {
 </script>
 
 <style scoped>
-.env-page { padding-top: 80px; }
+.env-page { padding-top: 100px; }
 .page-hero {
   padding: 5rem 0 3rem;
   text-align: center;

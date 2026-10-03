@@ -1,54 +1,62 @@
 <template>
-  <header class="navbar" :class="{ 'navbar-scrolled': scrolled, 'navbar-open': menuOpen }">
-    <div class="container navbar-inner">
-      <!-- Logo -->
+  <header class="navbar-wrap" :class="{ scrolled: scrolled, open: menuOpen }">
+    <div class="navbar">
       <router-link to="/" class="navbar-logo" @click="closeMenu">
         <img src="/kanabags-logo.png" alt="KanaBags Logo" class="logo-icon" />
+        <span class="logo-text">KanaBags</span>
       </router-link>
 
-      <!-- Desktop Nav -->
       <nav class="navbar-links" aria-label="Main Navigation">
-        <router-link to="/" class="nav-link" exact-active-class="nav-active">Home</router-link>
-        <router-link to="/about" class="nav-link" active-class="nav-active">About</router-link>
-        <router-link to="/products" class="nav-link" active-class="nav-active">Products</router-link>
-        <router-link to="/environment" class="nav-link" active-class="nav-active">Environment</router-link>
-        <router-link to="/contact" class="nav-link" active-class="nav-active">Contact</router-link>
+        <router-link to="/" class="nav-link" exact-active-class="nav-active">
+          <Home class="nav-ico" /> Home
+        </router-link>
+        <router-link to="/products" class="nav-link" active-class="nav-active">
+          <ShoppingBag class="nav-ico" /> Shop
+        </router-link>
+        <router-link to="/about" class="nav-link" active-class="nav-active">
+          <Factory class="nav-ico" /> About
+        </router-link>
+        <router-link to="/contact" class="nav-link" active-class="nav-active">
+          <Phone class="nav-ico" /> Contact
+        </router-link>
       </nav>
 
-      <!-- CTA -->
-      <div class="navbar-cta">
-        <router-link to="/order" class="btn btn-nav-cta">
-          <span>Order Now</span>
-          <ArrowRight class="icon-inline" />
+      <div class="navbar-right">
+        <a href="tel:+15716326843" class="nav-phone">
+          <Phone class="nav-ico" />
+          <span>(571) 632-6843</span>
+        </a>
+        <router-link to="/order" class="nav-order-btn">
+          <ShoppingCart class="nav-ico" />
+          <span>Order</span>
         </router-link>
       </div>
 
-      <!-- Hamburger -->
       <button class="hamburger" :class="{ open: menuOpen }" @click="toggleMenu" aria-label="Toggle Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
 
-    <!-- Mobile Menu -->
     <div class="mobile-menu" :class="{ open: menuOpen }">
-      <nav class="mobile-links">
-        <router-link to="/" class="mobile-link" @click="closeMenu">Home</router-link>
-        <router-link to="/about" class="mobile-link" @click="closeMenu">About</router-link>
-        <router-link to="/products" class="mobile-link" @click="closeMenu">Products</router-link>
-        <router-link to="/environment" class="mobile-link" @click="closeMenu">Environment</router-link>
-        <router-link to="/contact" class="mobile-link" @click="closeMenu">Contact</router-link>
-        <router-link to="/order" class="btn btn-nav-cta" style="margin-top:1rem;" @click="closeMenu">Order Now</router-link>
-      </nav>
+      <router-link to="/" class="mobile-link" @click="closeMenu"><Home class="nav-ico" /> Home</router-link>
+      <router-link to="/products" class="mobile-link" @click="closeMenu"><ShoppingBag class="nav-ico" /> Shop</router-link>
+      <router-link to="/about" class="mobile-link" @click="closeMenu"><Factory class="nav-ico" /> About</router-link>
+      <router-link to="/environment" class="mobile-link" @click="closeMenu"><Leaf class="nav-ico" /> Environment</router-link>
+      <router-link to="/contact" class="mobile-link" @click="closeMenu"><Phone class="nav-ico" /> Contact</router-link>
+      <a href="tel:+15716326843" class="mobile-link" @click="closeMenu"><Phone class="nav-ico" /> (571) 632-6843</a>
+      <router-link to="/order" class="nav-order-btn mobile-order" @click="closeMenu">
+        <ShoppingCart class="nav-ico" /> Order Now
+      </router-link>
     </div>
   </header>
 </template>
 
 <script>
-import { Leaf, ArrowRight } from 'lucide-vue-next'
+import { Home, ShoppingBag, Phone, ShoppingCart, Factory, Leaf } from 'lucide-vue-next'
 
 export default {
   name: 'NavBar',
-  components: { Leaf, ArrowRight },
+  components: { Home, ShoppingBag, Phone, ShoppingCart, Factory, Leaf },
   data() {
     return { scrolled: false, menuOpen: false }
   },
@@ -59,7 +67,7 @@ export default {
     window.removeEventListener('scroll', this.onScroll)
   },
   methods: {
-    onScroll() { this.scrolled = window.scrollY > 40 },
+    onScroll() { this.scrolled = window.scrollY > 24 },
     toggleMenu() { this.menuOpen = !this.menuOpen },
     closeMenu() { this.menuOpen = false }
   }
@@ -67,84 +75,116 @@ export default {
 </script>
 
 <style scoped>
-.navbar {
+.navbar-wrap {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
-  padding: 1rem 0;
-  background: linear-gradient(135deg, var(--green-900) 0%, var(--green-800) 55%, var(--green-700) 100%);
-  border-bottom: 1px solid rgba(61, 207, 132, 0.2);
-  box-shadow: 0 4px 24px rgba(4, 32, 21, 0.25);
-  transition: all 0.35s ease;
+  padding: 1rem 1.25rem 0;
+  pointer-events: none;
 }
-.navbar-scrolled {
-  padding: 0.65rem 0;
-  box-shadow: 0 6px 28px rgba(4, 32, 21, 0.35);
-}
-.navbar-inner {
+.navbar {
+  pointer-events: auto;
+  max-width: 1180px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
+  padding: 0.65rem 0.85rem 0.65rem 1.1rem;
+  background: rgba(250, 248, 242, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 999px;
+  border: 1px solid rgba(12, 42, 28, 0.08);
+  box-shadow: 0 10px 40px rgba(12, 42, 28, 0.12);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
+.navbar-wrap.scrolled .navbar {
+  box-shadow: 0 14px 44px rgba(12, 42, 28, 0.18);
+}
+
 .navbar-logo {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.55rem;
   text-decoration: none;
+  flex-shrink: 0;
 }
 .logo-icon {
-  height: 50px;
+  height: 38px;
   width: auto;
-  max-width: 180px;
+  max-width: 120px;
   object-fit: contain;
-  filter: brightness(1.05);
 }
+.logo-text {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--green-900);
+  letter-spacing: -0.02em;
+}
+
 .navbar-links {
   display: flex;
-  gap: 0.25rem;
+  align-items: center;
+  gap: 0.2rem;
   margin-left: auto;
 }
 .nav-link {
-  padding: 0.5rem 0.9rem;
-  border-radius: var(--radius-sm);
-  color: var(--on-green-muted);
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all var(--transition);
-  position: relative;
-}
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 2px; left: 50%; right: 50%;
-  height: 2px;
-  background: var(--amber);
-  border-radius: 1px;
-  transition: all var(--transition);
-}
-.nav-link:hover { color: var(--on-green); }
-.nav-link:hover::after, .nav-active::after { left: 12px; right: 12px; }
-.nav-active { color: #fff; }
-.navbar-cta { margin-left: 1rem; }
-.btn-nav-cta {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.7rem 1.4rem;
-  border-radius: var(--radius-md);
-  font-weight: 700;
+  gap: 0.35rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  color: var(--green-800);
   font-size: 0.9rem;
-  background: linear-gradient(135deg, var(--amber-dark), var(--amber));
-  color: #fff;
-  border: none;
-  box-shadow: 0 4px 16px rgba(232, 155, 30, 0.4);
+  font-weight: 600;
   transition: all var(--transition);
 }
-.btn-nav-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(232, 155, 30, 0.5);
+.nav-link:hover { background: rgba(22, 122, 74, 0.08); }
+.nav-active {
+  background: var(--green-800) !important;
+  color: #fff !important;
 }
-.icon-inline { width: 16px; height: 16px; margin-left: 6px; vertical-align: text-bottom; }
+.nav-ico { width: 16px; height: 16px; flex-shrink: 0; }
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-left: 0.5rem;
+}
+.nav-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--green-800);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color var(--transition);
+}
+.nav-phone:hover { color: var(--green-600); }
+.nav-phone .nav-ico { color: var(--green-600); }
+
+.nav-order-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.15rem;
+  border-radius: 999px;
+  background: var(--amber);
+  color: #1a1200;
+  font-weight: 800;
+  font-size: 0.88rem;
+  box-shadow: 0 4px 14px rgba(232, 155, 30, 0.35);
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.nav-order-btn:hover {
+  background: #f0ad2e;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(232, 155, 30, 0.45);
+}
 
 .hamburger {
   display: none;
@@ -153,14 +193,14 @@ export default {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: 6px;
   margin-left: auto;
 }
 .hamburger span {
   display: block;
-  width: 24px;
+  width: 22px;
   height: 2px;
-  background: var(--on-green);
+  background: var(--green-900);
   border-radius: 2px;
   transition: all 0.3s ease;
 }
@@ -169,33 +209,50 @@ export default {
 .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
 .mobile-menu {
+  pointer-events: auto;
   display: none;
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.4s ease;
-}
-.mobile-menu.open { max-height: 400px; }
-.mobile-links {
-  display: flex;
+  max-width: 1180px;
+  margin: 0.6rem auto 0;
+  background: rgba(250, 248, 242, 0.98);
+  border-radius: 24px;
+  padding: 0.75rem;
+  border: 1px solid rgba(12, 42, 28, 0.08);
+  box-shadow: 0 16px 40px rgba(12, 42, 28, 0.14);
   flex-direction: column;
-  padding: 1rem 1.5rem 1.5rem;
-  gap: 0.25rem;
-  border-top: 1px solid rgba(61, 207, 132, 0.2);
-  background: var(--green-950);
+  gap: 0.2rem;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.35s ease;
+}
+.mobile-menu.open {
+  max-height: 480px;
+  opacity: 1;
+  padding: 0.85rem;
 }
 .mobile-link {
-  padding: 0.75rem 0.5rem;
-  color: var(--on-green-muted);
-  font-size: 1rem;
-  font-weight: 500;
-  border-bottom: 1px solid rgba(61, 207, 132, 0.12);
-  transition: color var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  color: var(--green-800);
+  font-weight: 600;
 }
-.mobile-link:hover { color: var(--amber); }
+.mobile-link:hover { background: rgba(22, 122, 74, 0.08); }
+.mobile-order {
+  justify-content: center;
+  margin-top: 0.4rem;
+}
 
-@media (max-width: 768px) {
-  .navbar-links, .navbar-cta { display: none; }
+@media (max-width: 980px) {
+  .nav-phone span { display: none; }
+}
+@media (max-width: 820px) {
+  .navbar-links, .navbar-right { display: none; }
   .hamburger { display: flex; }
-  .mobile-menu { display: block; }
+  .mobile-menu { display: flex; }
+  .navbar { border-radius: 22px; }
+  .logo-text { display: none; }
 }
 </style>
