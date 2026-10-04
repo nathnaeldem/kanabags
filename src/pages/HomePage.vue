@@ -964,7 +964,8 @@ export default {
   .tile-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 900px) {
-  .announce { margin-top: 4.75rem; }
+  .announce { display: none; }
+  .hero { padding-top: 6.5rem; }
   .hero-inner, .promo-grid, .cats-grid, .compare { grid-template-columns: 1fr; }
   .hero-copy h1 { min-height: 0; }
   .cats-visual { max-width: 480px; margin: 0 auto; width: 100%; }
@@ -975,6 +976,5 @@ export default {
 @media (max-width: 600px) {
   .product-grid, .promise-grid, .tile-grid { grid-template-columns: 1fr 1fr; }
   .slide-thumbs { grid-template-columns: repeat(4, 1fr); }
-  .announce-track { font-size: 0.78rem; }
 }
 </style>
